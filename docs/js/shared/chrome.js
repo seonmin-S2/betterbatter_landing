@@ -138,14 +138,14 @@ function renderNav() {
         ${
           /*
            * 주 행동 버튼.
-           * 서버를 상시로 열어 둘 수 없으므로, LINKS.service가 비어 있으면
-           * "체험하기"를 내걸지 않는다. 대신 언제나 볼 수 있는 소개 영상으로 보낸다.
+           * 운영 서버가 종료되어 LINKS.service가 비어 있으면 "체험하기"를 내걸지 않는다.
+           * 대신 언제나 볼 수 있는 실제 화면 녹화(홈 #film)로 보낸다.
            * 나중에 서비스 주소가 생기면 js/data/site.js의 LINKS.service만 채우면
            * 이 버튼이 자동으로 "서비스 체험하기"로 바뀐다.
            */
           LINKS.service
             ? `<a class="btn btn--solid" data-link="service" href="#">서비스 체험하기</a>`
-            : `<a class="btn btn--solid" href="${escapeHtml(page === "home" ? "#film" : `${HOME_FILE}#film`)}">소개 영상 보기</a>`
+            : `<a class="btn btn--solid" href="${escapeHtml(page === "home" ? "#film" : `${HOME_FILE}#film`)}">실제 화면 보기</a>`
         }
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="메뉴 열기">
           <span class="nav-toggle__bars"><span></span><span></span><span></span></span>

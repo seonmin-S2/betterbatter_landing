@@ -16,13 +16,20 @@
 
 import { initChrome } from "./shared/chrome.js";
 import { initReveal, initCursorGlow } from "./shared/reveal.js";
+import { initHeroMarket } from "./pages/home/heroMarket.js";
+import { initHeroFacts } from "./pages/home/heroFacts.js";
+import { initFilm } from "./pages/home/film.js";
 
 /**
  * 페이지마다 켤 모듈. 키는 <body data-page="..."> 값과 같다.
  * 섹션 모듈을 만들면 여기에 ["이름", 함수] 로 등록한다.
  */
 const PAGE_MODULES = {
-  home: [],
+  home: [
+    ["heroMarket", initHeroMarket],
+    ["heroFacts", initHeroFacts],
+    ["film", initFilm],
+  ],
   product: [],
   proof: [],
   tech: [],

@@ -1,0 +1,487 @@
+/* ==========================================================================
+   pages/home/hero.css — 첫 화면
+   왼쪽에 서비스 선언, 오른쪽에 실제 질문이 열리고 닫히는 "라이브 마켓 무대".
+   무대의 색은 앱의 라이브 화면(어두운 구장 패널 + 밝은 예측 카드)을 따른다.
+   동작: js/pages/home/heroMarket.js · heroFacts.js
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: min(100svh, 940px);
+  padding-top: calc(var(--nav-height) + clamp(48px, 8vh, 104px));
+  padding-bottom: clamp(72px, 9vh, 128px);
+  display: flex;
+  align-items: center;
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(40px, 5vw, 76px);
+  align-items: center;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   왼쪽 — 서비스 선언 (문구는 앱 소개 화면 /about 과 같다)
+   -------------------------------------------------------------------------- */
+.hero__kicker {
+  margin-bottom: 22px;
+  font-size: var(--font-label);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-text-accent);
+}
+
+.hero__wordmark {
+  height: clamp(40px, 4.6vw, 62px);
+  width: auto;
+  margin-bottom: 18px;
+}
+
+.hero__title {
+  display: block;
+  font-size: clamp(26px, 2.8vw, 38px);
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+}
+
+.hero__lead {
+  margin-top: 22px;
+  max-width: 46ch;
+  font-size: var(--font-lead);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.hero__actions {
+  margin-top: 34px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* 하단 요약 수치 */
+.hero__facts {
+  margin-top: 40px;
+  padding-top: 26px;
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: start;
+  gap: 14px clamp(24px, 3vw, 40px);
+}
+
+.hero__fact-value {
+  font-size: clamp(20px, 1.9vw, 26px);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.hero__fact-suffix {
+  margin-left: 1px;
+  font-family: var(--font-family);
+  font-size: 0.7em;
+  font-weight: 700;
+}
+
+.hero__fact-label {
+  margin-top: 4px;
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   오른쪽 — 라이브 마켓 무대
+   -------------------------------------------------------------------------- */
+.hero__stage {
+  display: flex;
+  justify-content: center;
+}
+
+.stage {
+  --tone: var(--market-coral);
+  position: relative;
+  width: min(480px, 100%);
+  padding: 18px 18px 16px;
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(139, 149, 224, 0.18), transparent 60%),
+    linear-gradient(160deg, var(--stage-ink-3), var(--stage-ink) 62%);
+  color: var(--color-on-stage);
+  box-shadow: var(--shadow-float), inset 0 0 0 1px var(--color-on-stage-line);
+}
+
+/* 윗줄 — LIVE · 점수 · 이닝 */
+.stage__top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: var(--font-caption);
+}
+
+.stage__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px 4px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(238, 15, 56, 0.16);
+  color: var(--color-signal-on-stage);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.stage__live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand-red);
+  animation: pulse-ring 2s var(--ease-out) infinite;
+}
+
+.stage__score {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  color: var(--color-on-stage-dim);
+}
+
+.stage__score b {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.stage__score .num {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--color-on-stage);
+}
+
+.stage__score i {
+  font-style: normal;
+  opacity: 0.5;
+}
+
+.stage__inning {
+  margin-left: auto;
+  font-family: var(--font-family);
+  font-weight: 700;
+  color: var(--color-on-stage);
+}
+
+/* 다섯 단계 — 마켓 생애주기 */
+.stage__steps {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.stage__step {
+  display: grid;
+  gap: 7px;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-on-stage-dim);
+  text-align: center;
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.stage__step-dot {
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--color-on-stage-line);
+  transition: background var(--duration-base) var(--ease-out);
+}
+
+.stage__step.is-done .stage__step-dot {
+  background: rgba(200, 206, 255, 0.5);
+}
+
+.stage__step.is-now {
+  color: var(--color-on-stage);
+}
+
+.stage__step.is-now .stage__step-dot {
+  background: var(--tone);
+  box-shadow: 0 0 10px var(--tone);
+}
+
+/* 예측 카드 — 앱의 라이브 예측 카드처럼 밝은 면 */
+.stage__card {
+  position: relative;
+  margin-top: 16px;
+  min-height: 262px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  overflow: hidden;
+}
+
+/* 톤 막대 — 카드 왼쪽 가장자리 */
+.stage__card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--tone);
+}
+
+/* 공수 교대 — 0단계에서만 보인다 */
+.stage__switch {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: var(--font-label);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+  pointer-events: none;
+}
+
+.stage__spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--tone);
+  animation: spin 0.9s linear infinite;
+}
+
+.stage[data-phase="0"] .stage__switch {
+  opacity: 1;
+}
+
+.stage__market {
+  padding: 20px 20px 18px 24px;
+  transition: opacity var(--duration-base) var(--ease-out), transform var(--duration-slow) var(--ease-out);
+}
+
+.stage[data-phase="0"] .stage__market {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.stage__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: var(--font-micro);
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+}
+
+.stage__eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tone);
+}
+
+.stage__question {
+  margin-top: 10px;
+  font-size: clamp(19px, 1.7vw, 23px);
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: var(--tracking-tight);
+}
+
+.stage__q-context {
+  color: var(--color-text-accent);
+}
+
+/* 기저확률 — 과거 하프이닝 표본에서 이 상황의 YES 비율 */
+.stage__base {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--font-micro);
+  color: var(--color-text-tertiary);
+}
+
+.stage__base-bar {
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-sunken);
+  overflow: hidden;
+}
+
+.stage__base-bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: var(--tone);
+  transition: width 900ms var(--ease-out);
+}
+
+.stage__base b {
+  font-size: var(--font-caption);
+  color: var(--color-text-primary);
+}
+
+/* 투표 — 카운트다운 링 + YES/NO 참여 막대 */
+.stage__vote {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-divider);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.stage[data-phase="1"] .stage__vote {
+  opacity: 0.35;
+}
+
+.stage__timer {
+  position: relative;
+  width: 52px;
+  height: 52px;
+}
+
+.stage__timer svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.stage__timer circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+.stage__timer-track {
+  stroke: var(--color-surface-sunken);
+}
+
+.stage__timer-ring {
+  stroke: var(--tone);
+  stroke-linecap: round;
+  stroke-dasharray: 97.4;
+  stroke-dashoffset: 0;
+}
+
+.stage__timer .num {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.stage__pool-labels {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: var(--font-caption);
+  font-weight: 700;
+}
+
+.stage__yes {
+  color: var(--vote-yes);
+}
+
+.stage__no {
+  color: var(--vote-no);
+}
+
+.stage__yes b,
+.stage__no b {
+  font-size: 18px;
+}
+
+.stage__pool-note {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+}
+
+.stage__pool-bar {
+  margin-top: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--vote-no);
+  overflow: hidden;
+}
+
+.stage__pool-bar i {
+  display: block;
+  height: 100%;
+  width: 50%;
+  background: var(--vote-yes);
+  border-right: 2px solid var(--color-surface);
+}
+
+/* 상태 한 줄 — 단계마다 문구가 바뀐다 */
+.stage__status {
+  margin-top: 14px;
+  min-height: 2.9em;
+  font-size: var(--font-caption);
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+.stage[data-phase="3"] .stage__status,
+.stage[data-phase="4"] .stage__status {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* 마감 뒤에는 투표 칸을 흐리게 */
+.stage[data-phase="3"] .stage__vote,
+.stage[data-phase="4"] .stage__vote {
+  opacity: 0.55;
+}
+
+.stage__source {
+  margin-top: 12px;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--color-on-stage-dim);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   반응형
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 52px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero__facts {
+    grid-template-columns: repeat(2, auto);
+  }
+
+  .stage {
+    padding: 14px 12px 12px;
+  }
+
+  .stage__step {
+    font-size: 9.5px;
+  }
+
+  .stage__market {
+    padding: 18px 16px 16px 20px;
+  }
+}

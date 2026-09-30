@@ -36,7 +36,7 @@ export const NAV = [
     children: [
       { hash: "why", label: "기획 배경" },
       { hash: "glance", label: "기능 요약" },
-      { hash: "film", label: "소개 영상" },
+      { hash: "film", label: "실제 화면" },
     ],
   },
   {

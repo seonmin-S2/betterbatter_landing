@@ -89,6 +89,7 @@
   --color-on-stage: #f4f3fa;
   --color-on-stage-dim: rgba(244, 243, 250, 0.62);
   --color-on-stage-line: rgba(255, 255, 255, 0.13);
+  --color-signal-on-stage: #ff8a9d; /* 어두운 무대 위 LIVE 글자 — 로고 레드를 밝혀 대비 확보 */
 
   /* 마켓 카드 톤 — 서버 응답의 tone 값(coral · blue · green · gold)과 1:1 */
   --market-coral: var(--tone-coral);
