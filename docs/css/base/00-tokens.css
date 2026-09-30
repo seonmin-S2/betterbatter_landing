@@ -1,0 +1,177 @@
+/* ==========================================================================
+   00-tokens.css — BetterBatter 랜딩 디자인 토큰
+   --------------------------------------------------------------------------
+   단일 출처
+     · 앱 색 · 서체    ui/src/styles.css (:root)
+     · 소개 화면 색    ui/src/landing.css (.bbl — ink · paper · coral · gold)
+     · 브랜드 원색     ui/public/brand/better-batter-wordmark.webp 에서 추출
+   앱 값을 그대로 가져오고, 랜딩 전용(넓은 화면 · 큰 타이포)만 뒤에 덧붙였다.
+
+   ⚠️ 색을 바꾸려면 여기 [1] 원색 블록만 고치면 화면 전체가 따라온다.
+      HEX를 다른 파일에 직접 쓰지 않는다 — 반드시 var(--...)를 경유한다.
+   ========================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------
+     [1] 원색 — 팔레트의 원본
+     ------------------------------------------------------------------ */
+  /* 로고 3색 (워드마크에서 추출). 로고 전용이라 보정하지 않는다. */
+  --brand-red: #ee0f38;
+  --brand-blue: #0033a8;
+  --brand-black: #171717;
+
+  /* 앱 (styles.css) */
+  --app-bg: #f1f0f6;
+  --app-surface: #fcfbff;
+  --app-surface-2: #f3f1f8;
+  --app-surface-3: #e4e2ec;
+  --app-line: #dad7e4;
+  --app-line-strong: #b4b0c4;
+  --app-text: #24283d;
+  --app-soft: #575d76;
+  --app-muted: #747990;
+  --app-accent: #4f5d9a;
+  --app-accent-deep: #e8eaf6;
+  --app-nav: #29345e;
+  --app-highlight: #c8ceff;
+  --app-success: #3f7466;
+  --app-danger: #b34f5b;
+
+  /* 소개 화면 (landing.css) — 어두운 무대와 마켓 톤 */
+  --stage-ink: #0a0e1d;
+  --stage-ink-2: #111834;
+  --stage-ink-3: #1b2447;
+  --tone-coral: #e8635f;
+  --tone-lav: #8b95e0;
+  --tone-gold: #f2b33d;
+  --tone-turf: #4e7f52;
+
+  /* ------------------------------------------------------------------
+     [2] 역할 기반 컬러 — 실제 마크업은 이 이름만 쓴다
+     ------------------------------------------------------------------ */
+  --color-primary: var(--app-accent);
+  --color-primary-strong: var(--app-nav);
+  --color-primary-soft: var(--app-highlight);
+  --color-primary-faint: var(--app-accent-deep);
+
+  /* 흰 글씨를 얹는 채워진 버튼 — 앱 네이비 (흰 글씨 대비 12.0:1) */
+  --color-action: var(--app-nav);
+  --color-action-hover: #1f284b;
+  --color-action-disabled: #c9cbe0;
+
+  /* 강조 한 점 — 로고 레드. 면이 아니라 선 · 점 · 형광펜에만 쓴다 */
+  --color-signal: var(--brand-red);
+  --color-signal-soft: rgba(238, 15, 56, 0.14);
+
+  --color-background: var(--app-bg);
+  --color-surface: var(--app-surface);
+  --color-surface-tint: var(--app-surface-2);
+  --color-surface-sunken: var(--app-surface-3);
+  --color-scrim: rgba(10, 14, 29, 0.5);
+
+  --color-border: var(--app-line);
+  --color-border-strong: var(--app-line-strong);
+  --color-divider: #e8e6ef;
+
+  --color-text-primary: var(--app-text);
+  --color-text-secondary: var(--app-soft);
+  /* 앱의 --muted(#747990)는 배경 위 3.8:1이라 작은 글씨 기준(4.5:1)에 못 미친다.
+     랜딩은 11~12px 고지 문구에 이 색을 쓰므로 같은 계열로 한 단계 어둡게 둔다 (5.25:1). */
+  --color-text-tertiary: #5f6376;
+  --color-text-accent: var(--app-accent);
+  --color-text-on-primary: #ffffff;
+
+  --color-success: var(--app-success);
+  --color-danger: var(--app-danger);
+
+  /* 어두운 무대 위 글자 (히어로 · 라이브 장면) */
+  --color-stage: var(--stage-ink);
+  --color-on-stage: #f4f3fa;
+  --color-on-stage-dim: rgba(244, 243, 250, 0.62);
+  --color-on-stage-line: rgba(255, 255, 255, 0.13);
+
+  /* 마켓 카드 톤 — 서버 응답의 tone 값(coral · blue · green · gold)과 1:1 */
+  --market-coral: var(--tone-coral);
+  --market-blue: var(--tone-lav);
+  --market-green: var(--tone-turf);
+  --market-gold: var(--tone-gold);
+
+  /* YES / NO — 앱 투표 카드와 같은 두 색 */
+  --vote-yes: var(--app-accent);
+  --vote-no: var(--app-danger);
+
+  /* ------------------------------------------------------------------
+     [3] 타이포그래피 — 앱과 같은 세 서체
+        본문 Noto Sans KR · 라틴 제목과 숫자 Archivo · 기록 IBM Plex Mono
+     ------------------------------------------------------------------ */
+  --font-family: "Noto Sans KR", system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-display: "Archivo", "Noto Sans KR", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* 앱 스케일 (styles.css의 --type-*) */
+  --font-title: 20px;
+  --font-heading: 17px;
+  --font-body: 15px;
+  --font-label: 13px;
+  --font-caption: 12px;
+  --font-micro: 11px;
+
+  /* 랜딩 전용 — 뷰포트 반응형(clamp) */
+  --font-hero: clamp(34px, 4.6vw, 62px);
+  --font-section: clamp(24px, 2.6vw, 36px);
+  --font-lead: clamp(15px, 1.1vw, 17px);
+  --font-eyebrow: 12px;
+
+  --leading-tight: 1.28;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.7;
+  --tracking-tight: -0.02em;
+  --tracking-normal: -0.01em;
+  --tracking-eyebrow: 0.18em;
+
+  /* ------------------------------------------------------------------
+     [4] 형태 · 깊이 — 앱 --radius(11px) 기준
+     ------------------------------------------------------------------ */
+  --radius-xs: 7px;
+  --radius-sm: 11px;
+  --radius-md: 15px;
+  --radius-lg: 20px;
+  --radius-xl: 26px;
+  --radius-pill: 999px;
+
+  /* 그림자 기준색 — 앱 잉크(#24283d) 계열 */
+  --shadow-xs: 0 1px 2px rgba(36, 40, 61, 0.06);
+  --shadow-card: 0 1px 2px rgba(36, 40, 61, 0.05), 0 4px 14px rgba(36, 40, 61, 0.07);
+  --shadow-raised: 0 2px 4px rgba(36, 40, 61, 0.06), 0 10px 24px rgba(36, 40, 61, 0.09);
+  --shadow-float: 0 4px 8px rgba(36, 40, 61, 0.07), 0 18px 40px rgba(36, 40, 61, 0.14);
+  --shadow-action: 0 6px 16px rgba(41, 52, 94, 0.26);
+
+  /* ------------------------------------------------------------------
+     [5] 모션
+     ------------------------------------------------------------------ */
+  --duration-fast: 130ms;
+  --duration-base: 220ms;
+  --duration-slow: 360ms;
+  --duration-reveal: 760ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  /* ------------------------------------------------------------------
+     [6] 랜딩 레이아웃
+     ------------------------------------------------------------------ */
+  --shell-max: 1000px;      /* 본문 최대 폭 */
+  --shell-wide: 1180px;     /* 넓게 쓰는 블록(그리드 · 화면 · 영상) */
+  --shell-pad: clamp(20px, 6vw, 96px);
+  --section-gap: clamp(88px, 11vh, 168px);
+  --nav-height: 68px;
+}
+
+/* 애니메이션 최소화를 요청한 사용자에게는 전환 효과를 걷어낸다. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+    --duration-reveal: 0ms;
+  }
+}

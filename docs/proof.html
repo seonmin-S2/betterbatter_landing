@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F1F0F6">
+
+  <title>검증 · BetterBatter</title>
+  <meta name="description" content="질문 선정 · 결과 판정 · 마감 처리 · 운영 검증. 예측 마켓을 믿을 수 있게 만든 엔지니어링 검증.">
+  <meta name="author" content="BetterBatter · SSAFY 15기 B203">
+
+  <!-- 공유 카드 (Open Graph / Twitter)
+       og:image · og:url은 전체 주소여야 하므로 배포 주소가 정해지면 채운다.
+       주소가 바뀌면 6개 문서의 이 블록을 함께 고친다. -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="검증 · BetterBatter">
+  <meta property="og:description" content="질문 선정 · 결과 판정 · 마감 처리 · 운영 검증. 예측 마켓을 믿을 수 있게 만든 엔지니어링 검증.">
+  <meta property="og:site_name" content="BetterBatter">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/brand/favicon-64.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+
+  <!-- 서체 — 앱(ui/src/styles.css)과 같은 네 가족.
+       본문 Noto Sans KR · 라틴 제목과 숫자 Archivo · 스코어 Barlow Condensed · 기록 IBM Plex Mono.
+       불러오지 못해도 시스템 서체로 자연스럽게 떨어진다. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Barlow+Condensed:ital,wght@1,600;1,700;1,800&family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap">
+
+  <!-- ── 스타일 ────────────────────────────────────────────────────
+       css/base 는 여섯 페이지가 함께 쓰고, css/pages/<페이지> 는 이 페이지 전용입니다.
+       읽는 순서 = 겹치는 순서.
+       ------------------------------------------------------------ -->
+  <link rel="stylesheet" href="css/base/00-tokens.css">
+  <link rel="stylesheet" href="css/base/01-base.css">
+  <link rel="stylesheet" href="css/base/02-layout.css">
+  <link rel="stylesheet" href="css/base/03-motion.css">
+  <link rel="stylesheet" href="css/base/04-components.css">
+  <link rel="stylesheet" href="css/base/05-closing.css">
+
+  <script type="module" src="js/main.js"></script>
+
+  <!-- 안전장치 ------------------------------------------------------------
+       등장 연출([data-reveal])은 처음에 opacity:0이라, JS가 못 돌면
+       화면이 빈 채로 남는다. 아래 두 가지로 막는다.
+         1) JS 자체가 꺼져 있으면  html에 .js가 안 붙어 → 모두 보임
+         2) JS는 켜졌는데 모듈이 실패하면(예: file:// 로 직접 열었을 때)
+            1.8초 뒤 .reveal-fallback이 붙어 → 모두 보임
+       ※ file:// 에서는 ES 모듈이 CORS로 막힙니다. 로컬 확인은 반드시
+         간이 서버로 여세요 (README의 "로컬에서 보기" 참고).
+       --------------------------------------------------------------------- -->
+  <script>
+    document.documentElement.classList.add("js");
+    setTimeout(function () {
+      var root = document.documentElement;
+      if (!root.classList.contains("is-ready")) root.classList.add("reveal-fallback");
+    }, 1800);
+  </script>
+</head>
+
+<body data-page="proof">
+  <a class="sr-only" href="#main">본문으로 건너뛰기</a>
+
+  <!-- 화면에 고정된 분위기 레이어 (인디고 글로우 + 도트 그리드) -->
+  <div class="page-atmosphere" aria-hidden="true"></div>
+
+  <!-- 상단바와 푸터는 js/shared/chrome.js가 js/data/site.js의 NAV로 만든다.
+       목차를 고칠 때 페이지 6장을 모두 열지 않도록 한 곳에 모아 두었다. -->
+  <header class="site-nav"></header>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <main class="page-main" id="main">
+
+    <!-- ══════════════════════════════════════════════════════════
+         페이지 머리글
+         ══════════════════════════════════════════════════════════ -->
+    <section class="page-hero" id="top">
+      <div class="shell shell--wide" data-reveal-group="80">
+        <p class="page-hero__index" data-reveal="fade">No. 02 &nbsp;Proof</p>
+        <h1 class="page-hero__title" data-reveal>검증</h1>
+      </div>
+    </section>
+
+    <section class="section" id="selection">
+      <div class="shell shell--wide">
+        <div class="section-head" data-reveal-group>
+          <p class="eyebrow" data-reveal="fade">Question Selection</p>
+          <h2 class="section-title" data-reveal>질문 선정</h2>
+        </div>
+        <div class="placeholder" data-reveal>5장에서 작성</div>
+      </div>
+    </section>
+
+    <section class="section" id="oracle">
+      <div class="shell shell--wide">
+        <div class="section-head" data-reveal-group>
+          <p class="eyebrow" data-reveal="fade">Oracle</p>
+          <h2 class="section-title" data-reveal>결과 판정</h2>
+        </div>
+        <div class="placeholder" data-reveal>5장에서 작성</div>
+      </div>
+    </section>
+
+    <section class="section" id="deadline">
+      <div class="shell shell--wide">
+        <div class="section-head" data-reveal-group>
+          <p class="eyebrow" data-reveal="fade">Market Deadline</p>
+          <h2 class="section-title" data-reveal>마감 처리</h2>
+        </div>
+        <div class="placeholder" data-reveal>5장에서 작성</div>
+      </div>
+    </section>
+
+    <section class="section" id="ops">
+      <div class="shell shell--wide">
+        <div class="section-head" data-reveal-group>
+          <p class="eyebrow" data-reveal="fade">Operations</p>
+          <h2 class="section-title" data-reveal>운영 검증</h2>
+        </div>
+        <div class="placeholder" data-reveal>5장에서 작성</div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════
+         다음 페이지로
+         ══════════════════════════════════════════════════════════ -->
+    <section class="page-next">
+      <div class="shell shell--wide">
+        <div class="page-next__inner" data-reveal="fade">
+          <div>
+            <p class="page-next__label">다음</p>
+            <p class="page-next__title">경기 데이터가 화면에 닿기까지</p>
+          </div>
+          <a class="btn btn--solid btn--lg" href="tech.html">기술 살펴보기</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer"></footer>
+</body>
+</html>
