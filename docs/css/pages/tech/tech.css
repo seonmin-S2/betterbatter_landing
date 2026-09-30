@@ -1,0 +1,667 @@
+/* ==========================================================================
+   pages/tech/tech.css — 기술 페이지
+   아키텍처 그림 · 배포 흐름 · 파이프라인 두 줄 · 블록체인 · 기술 스택
+   동작: js/pages/tech/*.js
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   아키텍처 — 사용자 | 연결 | API | 연결 | 데이터·외부
+   -------------------------------------------------------------------------- */
+.arch {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 96px minmax(0, 1.5fr) 96px minmax(0, 1fr);
+  align-items: stretch;
+  padding: clamp(20px, 2.6vw, 32px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.arch__label {
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: var(--font-micro);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-text-tertiary);
+}
+
+.arch__col {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+}
+
+.arch__box {
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-tint);
+}
+
+.arch__box b {
+  font-size: var(--font-label);
+  color: var(--color-text-primary);
+}
+
+.arch__box small {
+  font-size: var(--font-caption);
+  line-height: 1.45;
+  color: var(--color-text-tertiary);
+}
+
+.arch__box.is-ext {
+  border-color: color-mix(in srgb, var(--market-coral) 45%, transparent);
+}
+
+.arch__box.is-off {
+  border-style: dashed;
+  background: transparent;
+}
+
+.arch__box.is-off b {
+  color: var(--color-text-tertiary);
+}
+
+/* 연결선 — 가운데 가로줄 + 라벨 */
+.arch__link {
+  position: relative;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 6px;
+  padding: 0 4px;
+}
+
+.arch__link::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 6px;
+  right: 6px;
+  border-top: 1.5px dashed var(--color-border-strong);
+}
+
+.arch__link span {
+  position: relative;
+  padding: 2px 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.arch__core {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(160deg, var(--stage-ink-3), var(--stage-ink) 70%);
+}
+
+.arch__core .arch__label {
+  color: var(--color-signal-on-stage);
+}
+
+.arch__packages {
+  display: grid;
+  gap: 6px;
+}
+
+.arch__pkg {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 2px 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-on-stage-line);
+}
+
+.arch__pkg code {
+  font-family: var(--font-mono);
+  font-size: var(--font-caption);
+  font-weight: 600;
+  color: var(--color-on-stage);
+}
+
+.arch__pkg span {
+  font-size: var(--font-caption);
+  line-height: 1.5;
+  color: var(--color-on-stage-dim);
+}
+
+.arch__pkg small {
+  grid-column: 2;
+  font-size: var(--font-micro);
+  color: var(--color-signal-on-stage);
+}
+
+/* --------------------------------------------------------------------------
+   배포 흐름
+   -------------------------------------------------------------------------- */
+.deploy {
+  margin-top: 16px;
+  padding: clamp(20px, 2.4vw, 28px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.deploy__flow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.deploy__flow li {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 3px;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-tint);
+}
+
+.deploy__flow li:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: -17px;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  color: var(--color-text-tertiary);
+}
+
+.deploy__flow b {
+  font-size: var(--font-label);
+  color: var(--color-text-primary);
+}
+
+.deploy__flow small {
+  font-size: var(--font-caption);
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+}
+
+.deploy__notes {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 24px;
+}
+
+.deploy__notes li {
+  position: relative;
+  padding-left: 14px;
+  font-size: var(--font-caption);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.deploy__notes li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   파이프라인 — OFFLINE / LIVE 두 줄
+   -------------------------------------------------------------------------- */
+.lane {
+  padding: clamp(20px, 2.4vw, 28px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.lane + .lane {
+  margin-top: 12px;
+}
+
+.lane__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin-bottom: 16px;
+  font-size: var(--font-body);
+  font-weight: 800;
+}
+
+.lane__title span {
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-faint);
+  font-family: var(--font-mono);
+  font-size: var(--font-micro);
+  font-weight: 600;
+  color: var(--color-text-accent);
+}
+
+.lane--live .lane__title span {
+  background: var(--color-signal-soft);
+  color: var(--app-danger);
+}
+
+.lane__title small {
+  font-size: var(--font-caption);
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+}
+
+.lane__steps {
+  display: grid;
+  grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
+  gap: 22px;
+}
+
+.lane__step {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-tint);
+}
+
+.lane__step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: -17px;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  color: var(--color-text-tertiary);
+}
+
+.lane__value {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.lane__value b {
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
+
+.lane__value span {
+  font-size: var(--font-caption);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.lane__step code {
+  font-family: var(--font-mono);
+  font-size: var(--font-caption);
+  color: var(--color-text-accent);
+  overflow-wrap: anywhere;
+}
+
+.lane__label {
+  font-size: var(--font-label);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.lane__step > b {
+  font-size: var(--font-label);
+  color: var(--color-text-primary);
+}
+
+.lane__step small,
+.lane__step p {
+  font-size: var(--font-caption);
+  line-height: 1.55;
+  color: var(--color-text-tertiary);
+}
+
+.pipeline__grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 16px;
+}
+
+.pipeline__pitfalls td:first-child code {
+  white-space: nowrap;
+}
+
+.replay__facts {
+  margin-top: 16px;
+  display: grid;
+  gap: 8px;
+}
+
+.replay__facts li {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 2px 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-tint);
+}
+
+.replay__facts b {
+  grid-row: span 2;
+  font-size: var(--font-body);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.replay__facts span {
+  font-size: var(--font-label);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.replay__facts small {
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   블록체인
+   -------------------------------------------------------------------------- */
+.chain__status {
+  display: grid;
+  gap: 12px;
+  padding: clamp(20px, 2.6vw, 30px);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--color-border-strong);
+  background: var(--color-surface-tint);
+}
+
+.chain__status-badge {
+  justify-self: start;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-action);
+  font-size: var(--font-caption);
+  font-weight: 700;
+  color: var(--color-text-on-primary);
+}
+
+.chain__status-badge code {
+  font-family: var(--font-mono);
+}
+
+.chain__status-body {
+  max-width: 78ch;
+  font-size: var(--font-label);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.chain__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chain__run {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.chain__run li {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 20px 22px;
+}
+
+.chain__run li + li {
+  border-left: 1px solid var(--color-divider);
+}
+
+.chain__run b {
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.chain__run span {
+  font-size: var(--font-label);
+  font-weight: 700;
+}
+
+.chain__run small {
+  font-size: var(--font-caption);
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+}
+
+.chain__grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.chain__guarantees {
+  display: grid;
+  gap: 10px;
+  counter-reset: g;
+}
+
+.chain__guarantees li {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding-left: 32px;
+  counter-increment: g;
+  font-size: var(--font-caption);
+  line-height: 1.55;
+  color: var(--color-text-tertiary);
+}
+
+.chain__guarantees li::before {
+  content: counter(g);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--color-primary-faint);
+  font-family: var(--font-mono);
+  font-size: var(--font-micro);
+  font-weight: 600;
+  color: var(--color-text-accent);
+}
+
+.chain__guarantees b {
+  font-size: var(--font-label);
+  color: var(--color-text-primary);
+}
+
+.chain__guarantees code {
+  font-family: var(--font-mono);
+  font-size: var(--font-micro);
+  color: var(--color-text-accent);
+}
+
+.chain__order {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.chain__order li {
+  display: grid;
+  grid-template-columns: 24px minmax(0, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-tint);
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.chain__order li.is-async {
+  background: transparent;
+  border: 1px dashed var(--color-border-strong);
+}
+
+.chain__order .num {
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+}
+
+.chain__order b {
+  font-size: var(--font-label);
+  color: var(--color-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   기술 스택
+   -------------------------------------------------------------------------- */
+.stacks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.stack {
+  padding: 20px 22px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.stack p {
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: var(--font-caption);
+  font-weight: 600;
+  color: var(--color-signal);
+}
+
+.stack ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.stack li {
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-tint);
+  font-size: var(--font-caption);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   좁은 화면
+   -------------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .arch {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .arch__link {
+    grid-auto-flow: column;
+    gap: 6px;
+    padding: 16px 0;
+  }
+
+  .arch__link::before {
+    top: 4px;
+    bottom: 4px;
+    left: 50%;
+    right: auto;
+    border-top: 0;
+    border-left: 1.5px dashed var(--color-border-strong);
+  }
+
+  .arch__col {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  }
+
+  .arch__col .arch__label {
+    grid-column: 1 / -1;
+  }
+
+  .deploy__flow,
+  .lane__steps {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 10px;
+  }
+
+  .deploy__flow li::after,
+  .lane__step::after {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .pipeline__grid,
+  .chain__grid,
+  .deploy__notes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chain__run {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chain__run li:nth-child(3) {
+    border-left: 0;
+  }
+
+  .chain__run li:nth-child(n + 3) {
+    border-top: 1px solid var(--color-divider);
+  }
+
+  .stacks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .stacks {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .arch__pkg {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .arch__pkg small {
+    grid-column: 1;
+  }
+
+  .chain__order li {
+    grid-template-columns: 20px minmax(0, 1fr);
+  }
+
+  .chain__order li span:last-child {
+    grid-column: 2;
+  }
+}

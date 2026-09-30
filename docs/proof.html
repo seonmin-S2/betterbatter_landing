@@ -39,6 +39,9 @@
   <link rel="stylesheet" href="css/base/03-motion.css">
   <link rel="stylesheet" href="css/base/04-components.css">
   <link rel="stylesheet" href="css/base/05-closing.css">
+  <link rel="stylesheet" href="css/pages/proof/selection.css">
+  <link rel="stylesheet" href="css/pages/proof/oracle.css">
+  <link rel="stylesheet" href="css/pages/proof/ops.css">
 
   <script type="module" src="js/main.js"></script>
 
@@ -79,47 +82,318 @@
     <section class="page-hero" id="top">
       <div class="shell shell--wide" data-reveal-group="80">
         <p class="page-hero__index" data-reveal="fade">No. 02 &nbsp;Proof</p>
-        <h1 class="page-hero__title" data-reveal>검증</h1>
+        <h1 class="page-hero__title" data-reveal>고른 이유와 판정 근거를<br>남기는 마켓</h1>
+        <p class="page-hero__lead" data-reveal>
+          질문을 고르는 점수, 결과를 판정하는 기준, 마감을 지키는 시계, 운영 서버에서 확인한 것까지.
+          서버 코드와 설계 문서, 실측 기록에 남은 내용만 옮겼습니다.
+        </p>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         질문 선정 — worker/QuestionSelector.java
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="selection">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Question Selection</p>
-          <h2 class="section-title" data-reveal>질문 선정</h2>
+          <h2 class="section-title" data-reveal>상황이 특별하고,<br>결과가 팽팽한 질문</h2>
+          <p class="section-lead" data-reveal>
+            공수 교대마다 38종 가운데 하나를 고릅니다. 규칙에 걸리는 후보를 먼저 빼고,
+            남은 후보에 세 요소로 점수를 매긴 뒤 상위 3개 중 점수 비례로 뽑습니다.
+            매번 1등만 고르면 같은 경기에서 같은 질문이 되풀이되기 때문입니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>5장에서 작성</div>
+
+        <div class="select__score" data-reveal>
+          <div class="select__formula">
+            <p class="select__formula-title">점수</p>
+            <p class="select__equation">
+              ( <b>0.45</b> × 상황 특이도 + <b>0.35</b> × 흥미도 + <b>0.20</b> × 균형 )<br>
+              × 재등장 감점 × 저확률 감점
+            </p>
+          </div>
+          <ul class="select__terms"></ul>
+          <ul class="select__penalties"></ul>
+        </div>
+
+        <div class="select__grid">
+          <div class="panel" data-reveal>
+            <p class="panel__title">점수 전에 빼는 후보</p>
+            <ol class="select__exclusions"></ol>
+          </div>
+          <div class="panel" data-reveal>
+            <p class="panel__title">표본이 부족하면 넓힙니다</p>
+            <p class="panel__body">
+              지금 상황의 확률은 이닝 · 공수 · 점수차 · 선두 타순으로 만든 조합에서 읽습니다.
+              조합의 표본이 100개 미만이면 뒤쪽 축부터 하나씩 떼어 넓은 조합으로 올라갑니다.
+            </p>
+            <ol class="select__chain" aria-label="컨텍스트 폴백 순서"></ol>
+          </div>
+        </div>
+
+        <!-- 점수 계산기 — js/pages/proof/scoreCalc.js · 서버로 아무것도 보내지 않는다 -->
+        <div class="calc" data-reveal>
+          <div class="calc__head">
+            <p class="calc__title">점수를 직접 계산해 보세요</p>
+            <p class="calc__note">평균 확률과 흥미도는 서버의 시즌 전체 집계값입니다.</p>
+          </div>
+          <div class="calc__body">
+            <div class="calc__inputs">
+              <label class="calc__field">
+                <span>질문 유형</span>
+                <select class="calc__type"></select>
+              </label>
+              <label class="calc__field">
+                <span>지금 상황의 확률 <output class="num calc__p-out"></output></span>
+                <input class="calc__p" type="range" min="2" max="98" step="1">
+              </label>
+              <div class="calc__field">
+                <span>이 경기에서 이미 나온 횟수</span>
+                <div class="calc__seen" role="radiogroup" aria-label="이미 나온 횟수">
+                  <button type="button" role="radio" data-seen="0">0회</button>
+                  <button type="button" role="radio" data-seen="1">1회</button>
+                  <button type="button" role="radio" data-seen="2">2회</button>
+                </div>
+              </div>
+            </div>
+            <div class="calc__result" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <div class="select__outcome">
+          <div class="select__tuning" data-reveal>
+            <p class="panel__title">튜닝 전후 <small>2025 시즌 과거 경기 재생</small></p>
+            <table class="data-table">
+              <thead><tr><th scope="col">지표</th><th scope="col">초기</th><th scope="col">최종</th></tr></thead>
+              <tbody class="select__tuning-rows"></tbody>
+            </table>
+            <p class="panel__foot">
+              처음엔 확률 40~60% 구간만 출제했으나 조합당 후보가 3~4개뿐이라 같은 질문이 반복됐습니다.
+              필터를 버리고 점수 방식으로 바꾼 뒤, 저확률 편향을 감점으로 눌렀습니다.
+              실사용 데이터 없이 재생으로 맞춘 값이라 최적값이 아니라 출발점입니다.
+            </p>
+          </div>
+          <figure class="hist" data-reveal>
+            <figcaption class="panel__title">9월 30일 실제 출제 <small>4경기 61개 질문의 기준 확률</small></figcaption>
+            <div class="hist__plot" role="img"></div>
+            <p class="hist__stats"></p>
+          </figure>
+        </div>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         결과 판정 — worker/oracle/*
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="oracle">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Oracle</p>
-          <h2 class="section-title" data-reveal>결과 판정</h2>
+          <h2 class="section-title" data-reveal>확률을 만든 코드로<br>결과를 판정합니다</h2>
+          <p class="section-lead" data-reveal>
+            하프이닝이 끝나면 타석 기록이 담긴 전체 피드를 한 번 받아 판정합니다.
+            확률 테이블도 같은 추출기로 집계했습니다. 두 경로가 다르면 "확률 30%라더니 판정 기준은 다르다"가 되고,
+            그 차이는 곧 정산 분쟁이 됩니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>5장에서 작성</div>
+
+        <!-- 판정 흐름 — 그림은 HTML/CSS 로만 그린다 -->
+        <div class="oracle__flow" data-reveal role="img"
+             aria-label="GUMBO 타석 기록이 추출기를 거쳐 확률 테이블과 판정으로 나뉘고, 판정은 linescore와 교차검증한 뒤 일치하면 정산, 어긋나면 30초마다 재검증하다 30분이 지나면 무효 처리된다">
+          <div class="oracle__col">
+            <div class="oracle__node is-source"><b>GUMBO plays</b><small>타석 · 투구 이벤트</small></div>
+            <div class="oracle__node is-core"><b>HalfInningExtractor</b><small>하프이닝 특징 추출</small></div>
+          </div>
+          <div class="oracle__split">
+            <div class="oracle__node"><b>확률 테이블</b><small>2025 시즌 43,202 하프이닝 집계</small></div>
+            <div class="oracle__node is-core"><b>QuestionJudge × 38</b><small>유형마다 판정 규칙 하나</small></div>
+          </div>
+          <div class="oracle__col">
+            <div class="oracle__node is-source"><b>linescore</b><small>MLB가 집계한 이닝별 안타 · 득점 · 잔루</small></div>
+            <div class="oracle__node is-check"><b>교차검증</b><small>8종은 두 소스를 맞춰 봅니다</small></div>
+          </div>
+          <div class="oracle__col oracle__col--end">
+            <div class="oracle__node is-ok"><b>일치 → 정산</b><small>근거 JSON과 SHA-256 해시 저장</small></div>
+            <div class="oracle__node is-hold"><b>불일치 → 보류</b><small>30초마다 재검증 · 30분 넘으면 무효 환급</small></div>
+          </div>
+        </div>
+
+        <div class="oracle__grid">
+          <div class="panel" data-reveal>
+            <p class="panel__title">교차검증되는 8종</p>
+            <p class="panel__body">
+              linescore는 이닝별 안타 · 득점 · 실책 · 잔루만 줍니다. 그 값으로 확인할 수 있는 유형만 두 소스를 맞춰 보고,
+              나머지 30종은 이벤트 집계 단독으로 판정하며 <code>crossCheck.applicable = false</code>로 남깁니다.
+              검증하지 않은 것을 검증했다고 기록하지 않습니다.
+            </p>
+            <ul class="oracle__chips"></ul>
+          </div>
+          <div class="panel" data-reveal>
+            <p class="panel__title">근거는 해시로 고정합니다</p>
+            <p class="panel__body">
+              나중에 "왜 이렇게 판정됐나"를 되짚을 수 있는 최소 집합을 근거 JSON으로 남깁니다.
+              키 순서가 흔들리면 같은 근거라도 해시가 달라지므로 키를 정렬한 뒤 SHA-256을 계산합니다.
+            </p>
+            <ul class="oracle__evidence"></ul>
+          </div>
+        </div>
+
+        <div class="truth" data-reveal>
+          <div class="truth__head">
+            <p class="panel__title">같은 코드끼리의 대조는 검증이 아닙니다</p>
+            <p class="panel__body">
+              확률과 판정이 같은 추출기를 쓰면 추출기가 틀려도 양쪽이 똑같이 틀립니다.
+              그래서 추출기 코드를 보지 않고, 리플레이 <b class="num truth__games"></b>경기
+              <b class="num truth__halves"></b>개 하프이닝의 GUMBO 원문을 야구 규칙으로 직접 판정해 대조했습니다.
+            </p>
+            <p class="truth__pitch"></p>
+          </div>
+          <ul class="truth__defects"></ul>
+          <p class="truth__limit">구속(95마일 이상)과 투수 누적 투구 수 2종은 GUMBO의 단일 필드를 그대로 읽어 독립 근거를 만들 수 없어, 아직 원문 대조를 하지 않았습니다.</p>
+        </div>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         마감 처리 — MarketEngine · MarketCloser · MarketDeadlineScheduler
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="deadline">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Market Deadline</p>
-          <h2 class="section-title" data-reveal>마감 처리</h2>
+          <h2 class="section-title" data-reveal>결과를 모르는 동안에만<br>참여를 받습니다</h2>
+          <p class="section-lead" data-reveal>
+            마감은 60초 타이머와 첫 투구 감지 중 먼저 오는 쪽입니다. 타이머만 있으면 쉬는 시간이 짧은 이닝에서
+            이미 시작된 공격에 참여를 받게 되고, 감지만 있으면 피드가 끊겼을 때 마켓이 영영 열려 있게 됩니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>5장에서 작성</div>
+
+        <ol class="timeline" data-reveal aria-label="하프이닝 한 번의 마켓 흐름">
+          <li class="timeline__step">
+            <span class="timeline__t num">0s</span>
+            <b>공수 교대 감지</b>
+            <small>앞 마켓을 판정 · 정산하고 새 질문을 엽니다</small>
+          </li>
+          <li class="timeline__step is-open">
+            <span class="timeline__t num">0~60s</span>
+            <b>투표 창</b>
+            <small>남은 시간은 서버의 마감 시각 기준으로 셉니다</small>
+          </li>
+          <li class="timeline__step is-seal">
+            <span class="timeline__t num">60s · 첫 투구</span>
+            <b>마감 · 봉인</b>
+            <small>참여 내역을 해시로 고정합니다</small>
+          </li>
+          <li class="timeline__step">
+            <span class="timeline__t num">하프이닝</span>
+            <b>경기 진행</b>
+            <small>결과가 정해지는 구간</small>
+          </li>
+          <li class="timeline__step is-judge">
+            <span class="timeline__t num">다음 교대</span>
+            <b>판정 · 정산</b>
+            <small>잔액에 바로 반영합니다</small>
+          </li>
+        </ol>
+
+        <div class="deadline__grid">
+          <div class="panel" data-reveal>
+            <p class="panel__title">피드가 멈춰도 시계는 돕니다</p>
+            <ul class="point-list">
+              <li><b>전용 스레드가 1초마다</b> 마감 시각이 지난 마켓을 찾아 닫습니다. MLB 호출이 늦거나 실패해도 마감은 따로 진행됩니다.</li>
+              <li><b>경기별 잠금을 공유합니다.</b> 피드 처리와 시간 마감은 같은 PostgreSQL advisory lock을 쓰고, 잠겨 있으면 기다리지 않고 다음 주기에 다시 봅니다.</li>
+              <li><b>참여 API와 같은 행 잠금</b>으로 마켓을 읽습니다. 마감 시각과 현재 시각이 같으면 참여할 수 없습니다.</li>
+              <li><b>60초로 정한 근거</b> — 실측 쉬는 시간 56회 중 120초를 넘은 경우는 0건이었습니다. 60초면 46회(82%)에서 타이머가 먼저 끝나 카운트다운이 정상 완주합니다.</li>
+            </ul>
+          </div>
+          <div class="panel seal" data-reveal>
+            <p class="panel__title">봉인 해시</p>
+            <p class="seal__equation">SHA-256( 마켓 ID | 참여자:방향:포인트 | … | 마감 시각 )</p>
+            <p class="panel__body">
+              참여 ID 오름차순으로 순서를 고정해, 같은 입력이면 언제 어디서 계산해도 같은 값이 나옵니다.
+              마감 뒤에 참여를 끼워 넣었는지 확인하는 근거입니다. 참여자가 0명이어도 마감하고, 무효 여부는 정산이 판단합니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="deadline__tables">
+          <div class="panel" data-reveal>
+            <p class="panel__title">정산 대신 원금을 돌려주는 다섯 경우</p>
+            <table class="data-table data-table--compact">
+              <thead><tr><th scope="col">사유</th><th scope="col">언제</th></tr></thead>
+              <tbody class="deadline__voids"></tbody>
+            </table>
+          </div>
+          <div class="panel" data-reveal>
+            <p class="panel__title">피드 상태 <small>우리 쪽 마지막 응답 시각 기준</small></p>
+            <table class="data-table data-table--compact">
+              <thead><tr><th scope="col">상태</th><th scope="col">조건</th><th scope="col">동작</th></tr></thead>
+              <tbody class="deadline__health"></tbody>
+            </table>
+            <p class="panel__foot">MLB 응답의 timeStamp는 되감기는 경우가 확인되어 지연 측정에 쓰지 않습니다.</p>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         운영 검증 — docs/*-verification-*.md · monitoring.md · .gitlab-ci.yml
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="ops">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Operations</p>
-          <h2 class="section-title" data-reveal>운영 검증</h2>
+          <h2 class="section-title" data-reveal>배포할 때마다,<br>운영 서버에서 다시 확인합니다</h2>
+          <p class="section-lead" data-reveal>
+            main에 병합하면 테스트 · 이미지 빌드 · 배포 · 실주소 점검이 한 파이프라인으로 이어집니다.
+            운영 서버에서는 사용자 흐름과 백업 복원, 작은 부하를 따로 검증했습니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>5장에서 작성</div>
+
+        <ul class="ops__counts" data-reveal></ul>
+
+        <div class="ops__pipeline" data-reveal aria-label="CI 파이프라인 단계"></div>
+
+        <div class="ops__grid">
+          <div class="panel" data-reveal>
+            <p class="panel__title">운영 검증 <small>2026-09-14</small></p>
+            <ul class="point-list">
+              <li><b>실제 HTTPS 사용자 흐름</b> — 임시 계정 가입, 설정 변경 · 복원, 잘못된 CSRF 토큰 거부, 이미지 업로드 · 원본 일치, 커뮤니티 글 생성 · 삭제, 인증된 WebSocket 연결.</li>
+              <li><b>백업 복원</b> — S3 백업의 체크섬과 이미지 해시를 확인하고, 격리된 PostgreSQL에 27개 테이블을 복원했습니다.</li>
+              <li><b>정리</b> — 검증용 계정 · 글 · 이미지는 ID와 해시를 대조해 운영에서 지웠습니다.</li>
+            </ul>
+          </div>
+          <div class="panel" data-reveal>
+            <p class="panel__title">소규모 부하 검증 <small>2026-09-18 · 공개 읽기 API · 익명 WebSocket</small></p>
+            <table class="data-table data-table--compact data-table--stack">
+              <thead><tr><th scope="col">단계</th><th scope="col">성공</th><th scope="col">p95</th><th scope="col">최대</th><th scope="col">WS</th></tr></thead>
+              <tbody class="ops__load"></tbody>
+            </table>
+            <p class="panel__foot">
+              540건 전부 200, 서버 CPU 4.84~8.57%. 쓰기 · 정산 · 경기 이벤트가 없는 조건이라
+              최대 동시 접속이나 실제 관중 규모를 보장하는 수치로 해석하지 않습니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="ops__notes note-grid" data-reveal-group="80">
+          <p class="note-card" data-reveal>
+            <b>모니터링과 경보</b>
+            Prometheus와 Grafana로 CPU · 메모리 · 디스크, API 오류율과 p95, WebSocket 연결, MLB 피드 지연을 봅니다.
+            경보는 팀 Mattermost 채널로 보내고, 로그 원문 · IP · 사용자 ID는 지표에 담지 않습니다.
+          </p>
+          <p class="note-card" data-reveal>
+            <b>9월 30일 실제 경기</b>
+            4경기에서 하프이닝마다 질문 61개가 자동으로 열리고 마감됐습니다.
+            참여자가 없어 정산할 대상은 없었고, 참여자가 없는 질문은 규칙대로 무효 처리됩니다.
+          </p>
+          <p class="note-card" data-reveal>
+            <b>아직 확인하지 못한 것</b>
+            실제 사용자가 몰린 경기 중의 이벤트 전달 · 정산 부하는 운영에서 관측하지 못했습니다.
+            지금까지의 수치는 낮은 트래픽과 과거 경기 재생에서 얻은 값입니다.
+          </p>
+        </div>
       </div>
     </section>
 

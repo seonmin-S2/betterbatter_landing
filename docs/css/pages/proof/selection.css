@@ -1,0 +1,483 @@
+/* ==========================================================================
+   pages/proof/selection.css — 질문 선정
+   점수 공식 · 제외 규칙 · 컨텍스트 폴백 · 점수 계산기 · 튜닝 표 · 실제 출제 분포
+   동작: js/pages/proof/selection.js · scoreCalc.js
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   점수 공식 — 짙은 면 하나
+   -------------------------------------------------------------------------- */
+.select__score {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+  padding: clamp(24px, 3vw, 36px);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(160deg, var(--stage-ink-3), var(--stage-ink) 70%);
+  color: var(--color-on-stage);
+}
+
+.select__formula-title {
+  font-family: var(--font-mono);
+  font-size: var(--font-caption);
+  color: var(--color-on-stage-dim);
+}
+
+.select__equation {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: clamp(14px, 1.45vw, 18px);
+  line-height: 1.8;
+}
+
+.select__equation b {
+  color: var(--color-signal-on-stage);
+  font-weight: 600;
+}
+
+.select__terms {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.select__term {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-on-stage-line);
+}
+
+.select__term-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.select__term-head b {
+  font-size: var(--font-body);
+}
+
+.select__term-head span {
+  font-family: var(--font-mono);
+  font-size: var(--font-label);
+  color: var(--color-signal-on-stage);
+}
+
+.select__term code {
+  font-family: var(--font-mono);
+  font-size: var(--font-caption);
+  color: var(--color-on-stage);
+}
+
+.select__term p {
+  font-size: var(--font-caption);
+  line-height: 1.6;
+  color: var(--color-on-stage-dim);
+}
+
+.select__penalties {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.select__penalty {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 14px;
+  align-items: baseline;
+  font-size: var(--font-caption);
+  line-height: 1.6;
+  color: var(--color-on-stage-dim);
+}
+
+.select__penalty b {
+  font-size: var(--font-label);
+  color: var(--color-on-stage);
+}
+
+.select__penalty span {
+  font-family: var(--font-mono);
+  color: var(--color-signal-on-stage);
+}
+
+.select__penalty p {
+  grid-column: 1 / -1;
+}
+
+/* --------------------------------------------------------------------------
+   제외 규칙 · 컨텍스트 폴백
+   -------------------------------------------------------------------------- */
+.select__grid,
+.select__outcome {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.select__exclusions {
+  display: grid;
+  gap: 10px;
+  counter-reset: ex;
+}
+
+.select__exclusions li {
+  position: relative;
+  padding-left: 30px;
+  counter-increment: ex;
+  font-size: var(--font-label);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.select__exclusions li::before {
+  content: counter(ex);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--color-signal-soft);
+  color: var(--color-signal);
+  font-family: var(--font-mono);
+  font-size: var(--font-micro);
+  font-weight: 600;
+}
+
+.select__exclusions b {
+  display: block;
+  color: var(--color-text-primary);
+}
+
+.select__chain {
+  margin-top: 16px;
+  display: grid;
+  gap: 8px;
+}
+
+.select__chain li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-tint);
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.select__chain li:nth-child(2) { margin-left: 14px; }
+.select__chain li:nth-child(3) { margin-left: 28px; }
+.select__chain li:nth-child(4) { margin-left: 42px; }
+
+.select__chain .num {
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+}
+
+.select__chain code {
+  font-family: var(--font-mono);
+  font-size: var(--font-label);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   점수 계산기
+   -------------------------------------------------------------------------- */
+.calc {
+  margin-top: 16px;
+  padding: clamp(20px, 2.6vw, 30px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.calc__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+  margin-bottom: 20px;
+}
+
+.calc__title {
+  font-size: clamp(17px, 1.6vw, 20px);
+  font-weight: 800;
+}
+
+.calc__note {
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.calc__body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(20px, 3vw, 36px);
+  align-items: start;
+}
+
+.calc__inputs {
+  display: grid;
+  gap: 18px;
+}
+
+.calc__field {
+  display: grid;
+  gap: 8px;
+  font-size: var(--font-label);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.calc__field > span {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.calc__p-out {
+  color: var(--color-text-primary);
+}
+
+.calc__type {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface);
+  font: inherit;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.calc__p {
+  width: 100%;
+  accent-color: var(--color-action);
+}
+
+.calc__seen {
+  display: flex;
+  gap: 6px;
+}
+
+.calc__seen button {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: var(--font-label);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.calc__seen button[aria-checked="true"] {
+  border-color: var(--color-action);
+  background: var(--color-action);
+  color: var(--color-text-on-primary);
+}
+
+.calc__rows {
+  display: grid;
+  gap: 10px;
+}
+
+.calc__row {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr) 64px;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.calc__row b {
+  font-size: var(--font-label);
+  color: var(--color-text-primary);
+}
+
+.calc__bar {
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-sunken);
+  overflow: hidden;
+}
+
+.calc__bar i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-primary);
+  transition: width var(--duration-base) var(--ease-out);
+}
+
+.calc__row .num {
+  text-align: right;
+  color: var(--color-text-primary);
+}
+
+.calc__total {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--color-border);
+  display: grid;
+  gap: 6px;
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.calc__total code {
+  font-family: var(--font-mono);
+  font-size: var(--font-label);
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.calc__total code b {
+  color: var(--color-text-accent);
+}
+
+.calc__flag {
+  color: var(--app-danger);
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   튜닝 표 · 실제 출제 분포
+   -------------------------------------------------------------------------- */
+.select__tuning,
+.hist {
+  padding: clamp(20px, 2.4vw, 28px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  min-width: 0;
+}
+
+.select__tuning td:last-child {
+  font-weight: 700;
+  color: var(--color-text-accent);
+}
+
+.hist__plot {
+  display: grid;
+  grid-template-columns: repeat(var(--bins, 13), minmax(0, 1fr));
+  align-items: end;
+  gap: 4px;
+  height: 200px;
+  padding-top: 20px;
+  padding-bottom: 22px;
+  position: relative;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* 0.4~0.6 구간 띠 */
+.hist__band {
+  position: absolute;
+  top: 0;
+  bottom: 22px;
+  border-radius: var(--radius-xs);
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  pointer-events: none;
+}
+
+.hist__band span {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  font-size: var(--font-micro);
+  font-weight: 700;
+  color: var(--color-text-accent);
+}
+
+.hist__bar {
+  position: relative;
+  height: var(--h);
+  min-height: 2px;
+  border-radius: 4px 4px 0 0;
+  background: var(--color-primary);
+  opacity: 0.85;
+}
+
+.hist__bar.is-low {
+  background: var(--market-gold);
+}
+
+.hist__bar b {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 3px);
+  transform: translateX(-50%);
+  font-size: var(--font-micro);
+  color: var(--color-text-secondary);
+}
+
+.hist__tick {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: var(--font-micro);
+  color: var(--color-text-tertiary);
+}
+
+.hist__stats {
+  margin-top: 14px;
+  font-size: var(--font-caption);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-tertiary);
+}
+
+.hist__stats b {
+  color: var(--color-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   좁은 화면
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .select__terms {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .select__grid,
+  .select__outcome,
+  .calc__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .select__penalties {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .select__chain li {
+    grid-template-columns: 22px minmax(0, 1fr);
+  }
+
+  .select__chain li span:last-child {
+    grid-column: 2;
+  }
+
+  .select__chain li:nth-child(n) {
+    margin-left: 0;
+  }
+
+  .calc__row {
+    grid-template-columns: 86px minmax(0, 1fr) 52px;
+  }
+}

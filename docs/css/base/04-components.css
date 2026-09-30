@@ -231,3 +231,178 @@
   height: 18px;
   transform: rotate(180deg);
 }
+
+/* --------------------------------------------------------------------------
+   표 — 검증 · 기술 페이지의 수치 표
+   숫자 칸은 .num 으로 고정폭 숫자를 쓴다
+   -------------------------------------------------------------------------- */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-label);
+}
+
+.data-table th,
+.data-table td {
+  padding: 11px 12px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.data-table th {
+  font-size: var(--font-caption);
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+}
+
+.data-table td {
+  color: var(--color-text-secondary);
+}
+
+.data-table td b {
+  color: var(--color-text-primary);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.data-table--compact th,
+.data-table--compact td {
+  padding: 9px 10px;
+}
+
+.data-table code {
+  font-family: var(--font-mono);
+  font-size: var(--font-caption);
+  color: var(--color-text-primary);
+}
+
+/* 표가 좁은 화면에서 넘치면 표만 가로로 민다 */
+.table-scroll {
+  overflow-x: auto;
+}
+
+/* --------------------------------------------------------------------------
+   메모 카드 — 굵은 제목 한 줄 + 설명. 섹션 끝의 보충 설명에 쓴다
+   -------------------------------------------------------------------------- */
+.note-card {
+  padding: 18px 20px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-tint);
+  font-size: var(--font-label);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.note-card b {
+  display: block;
+  margin-bottom: 4px;
+  font-size: var(--font-body);
+  color: var(--color-text-primary);
+}
+
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   패널 — 제목 · 설명 · 각주가 있는 흰 카드 (검증 · 기술 페이지)
+   -------------------------------------------------------------------------- */
+.panel {
+  padding: clamp(20px, 2.4vw, 28px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  min-width: 0;
+}
+
+.panel__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin-bottom: 12px;
+  font-size: var(--font-body);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.panel__title small {
+  font-size: var(--font-caption);
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+}
+
+.panel__body {
+  font-size: var(--font-label);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.panel__body code {
+  font-family: var(--font-mono);
+  font-size: var(--font-caption);
+  color: var(--color-text-primary);
+}
+
+.panel__foot {
+  margin-top: 14px;
+  font-size: var(--font-caption);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-tertiary);
+}
+
+/* 굵은 머리말로 시작하는 설명 목록 */
+.point-list {
+  display: grid;
+  gap: 12px;
+}
+
+.point-list li {
+  font-size: var(--font-label);
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+.point-list b {
+  color: var(--color-text-primary);
+}
+
+/* 좁은 화면에서 표를 행 단위 카드로 세운다 — 칸 이름은 td[data-label] */
+@media (max-width: 640px) {
+  .data-table--stack thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .data-table--stack tr {
+    display: grid;
+    gap: 4px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  .data-table--stack tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .data-table--stack td {
+    display: block;
+    padding: 0;
+    border: 0;
+  }
+
+  .data-table--stack td[data-label]::before {
+    content: attr(data-label) " · ";
+    font-size: var(--font-micro);
+    font-weight: 700;
+    color: var(--color-text-tertiary);
+  }
+}

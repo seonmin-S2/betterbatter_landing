@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="css/base/03-motion.css">
   <link rel="stylesheet" href="css/base/04-components.css">
   <link rel="stylesheet" href="css/base/05-closing.css">
+  <link rel="stylesheet" href="css/pages/tech/tech.css">
 
   <script type="module" src="js/main.js"></script>
 
@@ -79,47 +80,178 @@
     <section class="page-hero" id="top">
       <div class="shell shell--wide" data-reveal-group="80">
         <p class="page-hero__index" data-reveal="fade">No. 03 &nbsp;Tech</p>
-        <h1 class="page-hero__title" data-reveal>기술</h1>
+        <h1 class="page-hero__title" data-reveal>경기 데이터가<br>화면에 닿기까지</h1>
+        <p class="page-hero__lead" data-reveal>
+          MLB 중계 데이터를 3초마다 읽어 질문을 열고, 판정하고, 정산 결과를 WebSocket으로 보냅니다.
+          단일 Spring Boot 서버와 PostgreSQL · Redis, React 화면, 그리고 운영에서는 꺼 둔 블록체인 기록 모듈로 이루어져 있습니다.
+        </p>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         시스템 아키텍처 — 그림은 HTML/CSS 로만 그린다
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="architecture">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Architecture</p>
-          <h2 class="section-title" data-reveal>시스템 아키텍처</h2>
+          <h2 class="section-title" data-reveal>서버 하나,<br>역할은 패키지로 나눴습니다</h2>
+          <p class="section-lead" data-reveal>
+            4주 일정에서 모듈을 나누는 비용 대신 단일 모듈 안에서 패키지 의존 규칙을 지켰습니다.
+            컨트롤러가 경기 추적 상태에 얽히지 않아야 라이브와 리플레이를 같은 코드로 돌릴 수 있습니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>5장에서 작성</div>
+
+        <div class="arch" data-reveal role="img"
+             aria-label="브라우저가 CloudFront와 nginx를 거쳐 Spring Boot API에 REST와 STOMP WebSocket으로 연결되고, API는 PostgreSQL과 Redis를 쓰며 MLB Stats API를 3초마다 폴링한다. Polygon Amoy 기록은 운영에서 꺼져 있다">
+          <div class="arch__col">
+            <p class="arch__label">사용자</p>
+            <div class="arch__box"><b>React SPA</b><small>React 19 · Vite · TypeScript</small></div>
+            <div class="arch__box"><b>CloudFront</b><small>공개 HTTPS 진입점</small></div>
+            <div class="arch__box"><b>nginx</b><small>정적 파일 · /api · /ws 프록시</small></div>
+          </div>
+          <div class="arch__link"><span>REST</span><span>WSS · STOMP</span></div>
+          <div class="arch__core">
+            <p class="arch__label">Spring Boot API · Java 21</p>
+            <ul class="arch__packages"></ul>
+          </div>
+          <div class="arch__link"><span>JPA · 캐시</span><span>3초 폴링</span><span>web3j</span></div>
+          <div class="arch__col">
+            <p class="arch__label">데이터 · 외부</p>
+            <div class="arch__box"><b>PostgreSQL 16</b><small>스키마는 Flyway만 관리</small></div>
+            <div class="arch__box"><b>Redis 7</b><small>응원톡 캐시 · 없어도 기동</small></div>
+            <div class="arch__box is-ext"><b>MLB Stats API</b><small>GUMBO 실시간 피드 · 키 불필요</small></div>
+            <div class="arch__box is-off"><b>Polygon Amoy</b><small>운영에서는 기록 꺼 둠</small></div>
+          </div>
+        </div>
+
+        <div class="deploy" data-reveal>
+          <p class="panel__title">배포 <small>main 병합 → 운영 반영까지</small></p>
+          <ol class="deploy__flow">
+            <li><b>GitLab CI</b><small>전용 Runner(EC2)에서 테스트 · 빌드</small></li>
+            <li><b>ECR · S3</b><small>이미지는 digest로 고정 · 릴리스 묶음 업로드</small></li>
+            <li><b>SSM</b><small>고정된 배포 문서로 서버에서 배포 스크립트 실행</small></li>
+            <li><b>EC2 · Compose</b><small>web · api · postgres · redis 4개 컨테이너</small></li>
+            <li><b>live:smoke</b><small>실제 공개 주소를 읽기 전용으로 점검</small></li>
+          </ol>
+          <ul class="deploy__notes">
+            <li>배포 직전 PostgreSQL 덤프와 미디어를 비공개 S3로 백업합니다.</li>
+            <li>CI는 정적 AWS 키를 보관하지 않고 OIDC로 역할을 받아 씁니다.</li>
+            <li>동시 배포는 GitLab resource_group과 서버 flock 두 겹으로 막습니다.</li>
+            <li>API 컨테이너는 읽기 전용 파일시스템 · 비루트 사용자로 뜹니다.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         데이터 파이프라인
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="pipeline">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Data Pipeline</p>
-          <h2 class="section-title" data-reveal>데이터 파이프라인</h2>
+          <h2 class="section-title" data-reveal>지난 시즌으로 확률을 만들고,<br>오늘 경기로 질문을 엽니다</h2>
+          <p class="section-lead" data-reveal>
+            데이터 소스는 MLB Stats API 하나입니다. 지난 시즌 전체를 한 번 수집해 확률 테이블을 만들고,
+            경기 중에는 같은 API를 짧은 주기로 읽습니다. 과거 집계와 실시간 판정은 같은 추출기를 씁니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>5장에서 작성</div>
+
+        <div class="lane" data-reveal>
+          <p class="lane__title"><span>OFFLINE</span>과거 시즌 → 확률 테이블 <small>collect 프로파일 · 1회 실행</small></p>
+          <ol class="lane__steps lane__steps--offline"></ol>
+        </div>
+
+        <div class="lane lane--live" data-reveal>
+          <p class="lane__title"><span>LIVE</span>오늘 경기 → 질문 · 판정 · 정산 <small>replay를 뺀 모든 프로파일</small></p>
+          <ol class="lane__steps lane__steps--live"></ol>
+        </div>
+
+        <div class="pipeline__grid">
+          <div class="panel" data-reveal>
+            <p class="panel__title">실측으로 찾은 GUMBO 함정 <small>문서화되지 않은 동작</small></p>
+            <div class="table-scroll">
+              <table class="data-table data-table--compact data-table--stack">
+                <thead><tr><th scope="col">필드</th><th scope="col">실제 동작</th><th scope="col">대응</th></tr></thead>
+                <tbody class="pipeline__pitfalls"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel" data-reveal>
+            <p class="panel__title">리플레이 — 녹화한 경기를 같은 코드로</p>
+            <p class="panel__body">
+              경기가 없는 시간에도 시연하고 검증할 수 있도록 실제 경기의 응답을 녹화해 재생합니다.
+              분기하면 리플레이에서만 통과하는 버그가 생기므로, 공급원만 바꾸고 그 아래는 라이브와 같은 경로를 탑니다.
+            </p>
+            <ul class="replay__facts"></ul>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         블록체인 설계 — 운영에서는 꺼져 있음을 먼저 밝힌다
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="chain">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Blockchain</p>
-          <h2 class="section-title" data-reveal>블록체인 설계</h2>
+          <h2 class="section-title" data-reveal>서버가 나중에 말을 바꿀 수 없게</h2>
+          <p class="section-lead" data-reveal>
+            마감 시점의 참여 분포와 판정 결과를 Polygon 컨트랙트에 기록해, 운영자도 결과를 고칠 수 없다는 것을 증명하려는 설계입니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>5장에서 작성</div>
+
+        <div class="chain__status" data-reveal>
+          <p class="chain__status-badge">운영 비활성 · <code>CHAIN_ENABLED=false</code></p>
+          <p class="chain__status-body">
+            컨트랙트와 web3j 연동 코드는 구현했고, 컨트랙트는 Polygon Amoy 테스트넷에 배포해 소스 검증(Sourcify exact match)까지 마쳤습니다.
+            다만 운영 서버의 배포 구성에서는 체인 기록을 꺼 두었으므로, 서비스에서 열린 질문은 온체인에 기록되지 않았습니다.
+            아래 기록은 리플레이로 한 경기를 테스트넷에 끝까지 올린 실측입니다.
+          </p>
+          <div class="chain__links">
+            <a class="chip" href="https://repo.sourcify.dev/80002/0x2AFd940869f1Ec99784D9291FDa492a4D5e9b5fB/" target="_blank" rel="noopener">Sourcify 검증 결과</a>
+            <a class="chip" href="https://amoy.polygonscan.com/address/0x2AFd940869f1Ec99784D9291FDa492a4D5e9b5fB" target="_blank" rel="noopener">Polygonscan (Amoy)</a>
+          </div>
+        </div>
+
+        <ul class="chain__run" data-reveal aria-label="2026-09-01 리플레이 한 경기 온체인 기록 실측"></ul>
+
+        <div class="chain__grid">
+          <div class="panel" data-reveal>
+            <p class="panel__title">컨트랙트가 지키는 다섯 가지 <small>BaseballPredictionMarket.sol</small></p>
+            <ol class="chain__guarantees"></ol>
+            <p class="panel__foot">
+              업그레이드 프록시를 쓰지 않습니다. 로직을 바꿀 수 있으면 위 다섯 가지가 "지금은 안 바꾸겠다는 약속"으로 격하되므로,
+              버그가 나면 고쳐서 재배포하고 이전 주소의 기록은 그대로 둡니다.
+            </p>
+          </div>
+          <div class="panel" data-reveal>
+            <p class="panel__title">사용자 경험은 체인을 기다리지 않습니다</p>
+            <ol class="chain__order"></ol>
+            <ul class="point-list chain__notes">
+              <li><b>nonce 잠금</b> — 지갑이 하나라 두 경기가 동시에 기록하면 같은 nonce로 서명할 수 있어, 전송 지점을 잠금으로 감쌌습니다. 실측에서 약 3초 대기가 실제로 걸리는 것을 확인했습니다.</li>
+              <li><b>잔액 가드</b> — 리허설에서 잔액이 떨어져 16개 중 13개만 기록된 적이 있습니다. 경기를 끝까지 기록할 수 없으면 시작 전에 끕니다. 절반 기록보다 무기록이 설명 가능합니다.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         기술 스택
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="stacks">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Tech Stack</p>
           <h2 class="section-title" data-reveal>기술 스택</h2>
+          <p class="section-lead" data-reveal>
+            버전은 저장소의 빌드 설정과 배포 문서 기준입니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>5장에서 작성</div>
+        <div class="stacks" data-reveal></div>
       </div>
     </section>
 

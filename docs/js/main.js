@@ -24,6 +24,15 @@ import { initQuestionGrid } from "./pages/product/questionGrid.js";
 import { initPayout } from "./pages/product/payout.js";
 import { initSeason } from "./pages/product/season.js";
 import { initTryVote } from "./pages/product/tryVote.js";
+import { initSelection } from "./pages/proof/selection.js";
+import { initScoreCalc } from "./pages/proof/scoreCalc.js";
+import { initOracle } from "./pages/proof/oracle.js";
+import { initDeadline } from "./pages/proof/deadline.js";
+import { initOps } from "./pages/proof/ops.js";
+import { initArchitecture } from "./pages/tech/architecture.js";
+import { initPipeline } from "./pages/tech/pipeline.js";
+import { initChain } from "./pages/tech/chain.js";
+import { initStacks } from "./pages/tech/stacks.js";
 
 /**
  * 페이지마다 켤 모듈. 키는 <body data-page="..."> 값과 같다.
@@ -42,8 +51,19 @@ const PAGE_MODULES = {
     ["season", initSeason],
     ["try", initTryVote],
   ],
-  proof: [],
-  tech: [],
+  proof: [
+    ["selection", initSelection],
+    ["scoreCalc", initScoreCalc],
+    ["oracle", initOracle],
+    ["deadline", initDeadline],
+    ["ops", initOps],
+  ],
+  tech: [
+    ["architecture", initArchitecture],
+    ["pipeline", initPipeline],
+    ["chain", initChain],
+    ["stacks", initStacks],
+  ],
   principles: [],
   team: [],
 };
