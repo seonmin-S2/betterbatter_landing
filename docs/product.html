@@ -39,6 +39,9 @@
   <link rel="stylesheet" href="css/base/03-motion.css">
   <link rel="stylesheet" href="css/base/04-components.css">
   <link rel="stylesheet" href="css/base/05-closing.css">
+  <link rel="stylesheet" href="css/pages/product/flow.css">
+  <link rel="stylesheet" href="css/pages/product/questions.css">
+  <link rel="stylesheet" href="css/pages/product/payout.css">
 
   <script type="module" src="js/main.js"></script>
 
@@ -79,57 +82,191 @@
     <section class="page-hero" id="top">
       <div class="shell shell--wide" data-reveal-group="80">
         <p class="page-hero__index" data-reveal="fade">No. 01 &nbsp;Product</p>
-        <h1 class="page-hero__title" data-reveal>제품</h1>
+        <h1 class="page-hero__title" data-reveal>하프이닝마다 열리는<br>하나의 질문</h1>
+        <p class="page-hero__lead" data-reveal>
+          경기를 고르고, 구장 화면을 보다가, 공수 교대에 열리는 질문에 무료 가상 포인트로 참여합니다.
+          결과는 하프이닝이 끝나면 경기 데이터로 판정되고, 기록은 시즌 티어와 랭킹으로 쌓입니다.
+        </p>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         사용 흐름 5장면 — 문구는 앱 소개 화면(/about)과 같다
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="flow">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">User Flow</p>
-          <h2 class="section-title" data-reveal>사용 흐름</h2>
+          <h2 class="section-title" data-reveal>오늘의 경기에서<br>시즌 랭킹까지</h2>
+          <p class="section-lead" data-reveal>
+            다섯 장면으로 사용 흐름을 살펴보세요. 화면은 실제 앱을 수집 데이터로 띄워 캡처했으며,
+            참여 규모와 계정 정보는 예시입니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>4장에서 작성</div>
+        <!-- 단계와 화면은 js/pages/product/flow.js가 product.data.js의 FLOW로 만든다 -->
+        <div class="flow" data-reveal>
+          <div class="flow__steps" role="tablist" aria-label="사용 흐름 단계" aria-orientation="vertical"></div>
+          <div class="flow__view" id="flow-view" role="tabpanel"></div>
+        </div>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         질문 38종 — 데이터는 js/data/questions.js
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="questions">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Question Types</p>
-          <h2 class="section-title" data-reveal>질문 38종</h2>
+          <h2 class="section-title" data-reveal>질문은 38종,<br>그중 하나를 고릅니다</h2>
+          <p class="section-lead" data-reveal>
+            질문 유형은 서버 코드에 38개로 정해져 있습니다. 각 유형이 2025 시즌 43,202개 하프이닝에서
+            실제로 일어난 비율을 평균 확률로 집계해 두고, 지금 상황의 확률과 비교해 질문을 고릅니다.
+            카드를 누르면 판정 기준이 펼쳐집니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>4장에서 작성</div>
+
+        <div class="questions" data-reveal>
+          <div class="questions__bar">
+            <div class="questions__filters" role="group" aria-label="질문 계열"></div>
+            <button class="questions__seen" type="button" role="switch" aria-checked="false">9/30 출제된 유형만</button>
+          </div>
+          <p class="questions__summary"></p>
+          <div class="questions__grid"></div>
+        </div>
+
+        <div class="questions__foot" data-reveal-group="80">
+          <p class="questions__rule" data-reveal>
+            <b>중계에 나오는 것만 묻습니다</b>
+            투구 수 · 구속 · 투수 교체처럼 중계 자막에 늘 나오는 값은 질문이 되지만,
+            MLB 내부 지표나 생소한 Statcast 지표(타구 속도 100마일 등)는 넣지 않았습니다.
+          </p>
+          <p class="questions__rule" data-reveal>
+            <b>답이 정해진 질문은 내지 않습니다</b>
+            지금 상황의 확률이 2% 미만이거나 98%를 넘는 유형은 후보에서 뺍니다.
+            표본이 100개 미만인 상황 조합은 믿지 않고 한 단계 넓은 조합의 확률을 씁니다.
+          </p>
+          <p class="questions__rule" data-reveal>
+            <b>모두 그 하프이닝 안에서 판정합니다</b>
+            기준이 애매하면 정산 분쟁이 생기므로 "몇 개 이상", "누구 기준"을
+            판정 기준 문장에 그대로 적었습니다.
+          </p>
+        </div>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         파리뮤추얼 정산 — 숫자는 payoutMath.js(= Payout.java)로 계산
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="payout">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Parimutuel</p>
-          <h2 class="section-title" data-reveal>파리뮤추얼 정산</h2>
+          <h2 class="section-title" data-reveal>정해진 배당표 없이,<br>모인 참여량으로 정산합니다</h2>
+          <p class="section-lead" data-reveal>
+            같은 질문에 모인 포인트를 이긴 쪽 참여자가 나눠 갖습니다. 하프이닝 결과가 판정되면
+            그 자리에서 잔액에 반영하고, 경기가 끝나면 최종 잔액과 순위를 확정합니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>4장에서 작성</div>
+
+        <div class="payout__rules" data-reveal></div>
+
+        <div class="payout__grid">
+          <div class="payout__formula" data-reveal>
+            <p class="payout__formula-title">worker/Payout.java</p>
+            <p class="payout__equation">배당 = min(<br>&nbsp;&nbsp;(총풀 − <b>시드</b>×2) ÷ (승리풀 − <b>시드</b>),<br>&nbsp;&nbsp;<b>30</b><br>)</p>
+            <ul>
+              <li><strong>시드 100P</strong> — 마켓을 열 때 양쪽에 100P씩 넣어 둡니다.
+                사람이 낸 포인트가 아니므로 정산 때 빼서, 참여자가 낸 만큼 참여자가 가져갑니다.</li>
+              <li><strong>상한 30배</strong> — YES 1명 · NO 199명이면 200배가 나와 한 사람이 랭킹을 독점합니다. 잘린 몫은 지급하지 않습니다.</li>
+              <li><strong>이긴 쪽에 참여자가 없으면</strong> 배당을 계산할 수 없으므로 무효 처리합니다.</li>
+            </ul>
+          </div>
+          <div class="payout__worked" data-reveal aria-label="배당 계산 예시"></div>
+        </div>
+
+        <div class="payout__xp-wrap" data-reveal>
+          <p class="payout__xp-title">경험치는 손익이 아니라 적중으로 셉니다<small>worker/ExperiencePolicy.java</small></p>
+          <ul class="payout__xp"></ul>
+        </div>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         시즌 · 티어 · 업적
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="season">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Season</p>
-          <h2 class="section-title" data-reveal>시즌 · 티어 · 업적</h2>
+          <h2 class="section-title" data-reveal>한 경기가<br>시즌의 위치가 됩니다</h2>
+          <p class="section-lead" data-reveal>
+            경기마다 얻은 경험치가 시즌 랭크 점수로 쌓이고, 점수에 따라 일곱 단계 티어가 정해집니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>4장에서 작성</div>
+        <ol class="season__tiers" aria-label="티어 일곱 단계와 필요 경험치"></ol>
+        <p class="season__note" data-reveal="fade">참여한 경기가 5회 미만이면 점수가 넘어도 SILVER 이상으로 승급하지 않습니다.</p>
+
+        <p class="season__badges-title" data-reveal>업적 8종</p>
+        <ul class="season__badges" data-reveal></ul>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         직접 해보기 — 서버로 아무것도 보내지 않는 체험 카드
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="try">
       <div class="shell shell--wide">
-        <div class="section-head" data-reveal-group>
-          <p class="eyebrow" data-reveal="fade">Try It</p>
-          <h2 class="section-title" data-reveal>직접 해보기</h2>
+        <div class="try-wrap">
+          <div class="try__copy" data-reveal-group>
+            <p class="eyebrow" data-reveal="fade">Try It</p>
+            <h2 class="section-title" data-reveal>여기서 바로<br>한 번 눌러보세요</h2>
+            <p class="section-lead" data-reveal>
+              9월 30일 경기에서 실제로 생성된 질문에 예시 참여량(YES 3,900P · NO 6,200P)을 붙였습니다.
+              배당과 수령액은 서버와 같은 공식으로 계산합니다.
+            </p>
+            <p class="section-lead" data-reveal>
+              참여한 뒤에는 판정 결과를 골라 적중과 미적중을 모두 확인할 수 있습니다.
+              이 카드는 아무것도 서버로 보내지 않습니다.
+            </p>
+          </div>
+
+          <div class="try" data-reveal="scale">
+            <div class="try__top">
+              <p class="try__eyebrow">체험 · <span class="try__label"></span></p>
+              <p class="try__question"></p>
+              <p class="try__base-row">과거 표본 기준 확률 <b class="try__base num"></b></p>
+            </div>
+            <div class="try__sides">
+              <button class="try__side" type="button" data-side="yes" aria-pressed="false"><b class="num"><span data-try-yes></span>%</b><span>YES · 그렇다</span></button>
+              <button class="try__side" type="button" data-side="no" aria-pressed="false"><b class="num"><span data-try-no></span>%</b><span>NO · 아니다</span></button>
+            </div>
+            <div class="try__body">
+              <div class="try__amount-row">
+                <p class="try__amount num"><span data-try-amount></span><small>P</small></p>
+                <p class="try__expect">적중 시 예상<b class="num" data-try-expect></b><span data-try-ratio></span></p>
+              </div>
+              <div class="try__steps">
+                <button type="button" data-step="-100">−100</button>
+                <button type="button" data-step="-50">−50</button>
+                <button type="button" data-step="50">+50</button>
+                <button type="button" data-step="100">+100</button>
+              </div>
+              <button class="try__submit" type="button" disabled></button>
+              <p class="try__balance">보유 <b class="num" data-try-balance></b>P · 최소 10P, 10P 단위</p>
+            </div>
+            <div class="try__result" hidden>
+              <p class="try__result-title">하프이닝이 끝났다고 치고, 판정 결과를 골라 보세요</p>
+              <div class="try__outcomes">
+                <button type="button" data-outcome="yes" aria-pressed="false">YES로 판정</button>
+                <button type="button" data-outcome="no" aria-pressed="false">NO로 판정</button>
+              </div>
+              <p class="try__settle" aria-live="polite"></p>
+              <p class="try__resolution"></p>
+              <button class="try__reset" type="button">처음부터 다시</button>
+            </div>
+          </div>
         </div>
-        <div class="placeholder" data-reveal>4장에서 작성</div>
       </div>
     </section>
 

@@ -1,0 +1,591 @@
+/* ==========================================================================
+   pages/product/payout.css — 파리뮤추얼 정산 · 시즌/티어/업적 · 직접 해보기
+   동작: js/pages/product/payout.js · season.js · tryVote.js
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   포인트 규칙 네 칸
+   -------------------------------------------------------------------------- */
+.payout__rules {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.payout__rule {
+  display: grid;
+  gap: 4px;
+  padding: 22px 22px 20px;
+}
+
+.payout__rule + .payout__rule {
+  border-left: 1px solid var(--color-divider);
+}
+
+.payout__rule b {
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.payout__rule span {
+  font-size: var(--font-label);
+  font-weight: 700;
+}
+
+.payout__rule small {
+  font-size: var(--font-caption);
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   배당 공식 + 풀이
+   -------------------------------------------------------------------------- */
+.payout__grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: 16px;
+}
+
+.payout__formula {
+  padding: clamp(24px, 3vw, 34px);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(160deg, var(--stage-ink-3), var(--stage-ink) 70%);
+  color: var(--color-on-stage);
+}
+
+.payout__formula-title {
+  font-family: var(--font-mono);
+  font-size: var(--font-caption);
+  color: var(--color-on-stage-dim);
+}
+
+.payout__equation {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: clamp(14px, 1.3vw, 17px);
+  line-height: 1.7;
+}
+
+.payout__equation b {
+  color: var(--color-signal-on-stage);
+  font-weight: 600;
+}
+
+.payout__formula ul {
+  margin-top: 20px;
+  display: grid;
+  gap: 10px;
+  font-size: var(--font-label);
+  line-height: 1.6;
+  color: var(--color-on-stage-dim);
+}
+
+.payout__formula li strong {
+  color: var(--color-on-stage);
+}
+
+.payout__worked {
+  padding: clamp(22px, 2.6vw, 30px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.payout__pools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.payout__pool {
+  display: grid;
+  gap: 2px;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-caption);
+}
+
+.payout__pool.is-yes {
+  background: color-mix(in srgb, var(--vote-yes) 12%, transparent);
+  color: var(--vote-yes);
+}
+
+.payout__pool.is-no {
+  background: color-mix(in srgb, var(--vote-no) 12%, transparent);
+  color: var(--vote-no);
+}
+
+.payout__pool b {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.payout__pool small {
+  color: var(--color-text-tertiary);
+}
+
+.payout__steps {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+  counter-reset: step;
+}
+
+.payout__steps li {
+  display: grid;
+  gap: 4px;
+  padding-left: 30px;
+  position: relative;
+  counter-increment: step;
+  font-size: var(--font-label);
+  color: var(--color-text-secondary);
+}
+
+.payout__steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--color-surface-sunken);
+  font-family: var(--font-mono);
+  font-size: var(--font-micro);
+  color: var(--color-text-secondary);
+}
+
+.payout__steps code {
+  font-family: var(--font-mono);
+  font-size: var(--font-label);
+  color: var(--color-text-primary);
+}
+
+.payout__steps b {
+  color: var(--color-text-accent);
+}
+
+/* 경험치 규칙 */
+.payout__xp-wrap {
+  margin-top: 16px;
+  padding: 22px clamp(20px, 2.6vw, 30px);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-tint);
+}
+
+.payout__xp-title {
+  font-size: var(--font-body);
+  font-weight: 800;
+}
+
+.payout__xp-title small {
+  margin-left: 8px;
+  font-size: var(--font-caption);
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+}
+
+.payout__xp {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.payout__xp li {
+  display: grid;
+  gap: 4px;
+}
+
+.payout__xp b {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text-accent);
+}
+
+.payout__xp span {
+  font-size: var(--font-caption);
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   시즌 · 티어 · 업적
+   -------------------------------------------------------------------------- */
+.season__tiers {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  align-items: end;
+}
+
+.season__tier {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 14px 6px 16px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  /* 계단 — 위 티어일수록 조금씩 높게 */
+  padding-top: calc(14px + var(--i) * 6px);
+  transition-delay: calc(var(--i) * 70ms);
+}
+
+.season__tier img {
+  width: clamp(48px, 5vw, 72px);
+  height: auto;
+}
+
+.season__tier b {
+  font-size: var(--font-caption);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.season__tier span {
+  font-size: var(--font-micro);
+  color: var(--color-text-tertiary);
+}
+
+.season__note {
+  margin-top: 12px;
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.season__badges-title {
+  margin-top: clamp(40px, 5vw, 60px);
+  margin-bottom: 16px;
+  font-size: var(--font-heading);
+  font-weight: 800;
+}
+
+.season__badges {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.season__badge {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 20px 12px 18px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.season__badge img {
+  width: 64px;
+  height: auto;
+  margin-bottom: 6px;
+}
+
+.season__badge-rarity {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+}
+
+.season__badge[data-rarity="레어"] .season__badge-rarity { color: var(--app-accent); }
+.season__badge[data-rarity="에픽"] .season__badge-rarity { color: var(--app-danger); }
+.season__badge[data-rarity="레전더리"] .season__badge-rarity { color: var(--tone-gold); }
+
+.season__badge b {
+  font-size: var(--font-label);
+}
+
+.season__badge small {
+  font-size: var(--font-micro);
+  color: var(--color-text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   직접 해보기 — 체험 카드
+   -------------------------------------------------------------------------- */
+.try-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  gap: clamp(28px, 4vw, 64px);
+  align-items: center;
+}
+
+.try {
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-float);
+  overflow: hidden;
+}
+
+.try__top {
+  padding: 18px 22px;
+  border-left: 4px solid var(--market-coral);
+  background: color-mix(in srgb, var(--market-coral) 8%, var(--color-surface));
+}
+
+.try__eyebrow {
+  font-size: var(--font-micro);
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+}
+
+.try__question {
+  margin-top: 6px;
+  font-size: clamp(19px, 1.8vw, 22px);
+  font-weight: 800;
+}
+
+.try__q-context {
+  color: var(--color-text-accent);
+}
+
+.try__base-row {
+  margin-top: 6px;
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.try__base-row b {
+  color: var(--color-text-primary);
+}
+
+.try__sides {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.try__side {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 22px 12px;
+  transition: background var(--duration-fast) var(--ease-out), opacity var(--duration-fast);
+}
+
+.try__side[data-side="yes"] {
+  color: var(--vote-yes);
+  background: color-mix(in srgb, var(--vote-yes) 10%, var(--color-surface));
+}
+
+.try__side[data-side="no"] {
+  color: var(--vote-no);
+  background: color-mix(in srgb, var(--vote-no) 10%, var(--color-surface));
+}
+
+.try__side b {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.try__side > span {
+  font-size: var(--font-caption);
+  font-weight: 700;
+}
+
+.try__side[aria-pressed="true"][data-side="yes"] {
+  background: var(--vote-yes);
+  color: var(--color-text-on-primary);
+}
+
+.try__side[aria-pressed="true"][data-side="no"] {
+  background: var(--vote-no);
+  color: var(--color-text-on-primary);
+}
+
+.try[data-side="yes"] .try__side[data-side="no"],
+.try[data-side="no"] .try__side[data-side="yes"] {
+  opacity: 0.55;
+}
+
+.try__body {
+  padding: 18px 22px 22px;
+  display: grid;
+  gap: 14px;
+}
+
+.try__amount-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.try__amount {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.try__amount small {
+  margin-left: 4px;
+  font-size: 15px;
+  color: var(--color-text-tertiary);
+}
+
+.try__expect {
+  text-align: right;
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.try__expect b {
+  display: block;
+  font-size: 18px;
+  color: var(--color-success);
+}
+
+.try__steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.try__steps button {
+  padding: 9px 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-tint);
+  font-family: var(--font-mono);
+  font-size: var(--font-label);
+  color: var(--color-text-secondary);
+}
+
+.try__steps button:hover {
+  background: var(--color-surface-sunken);
+}
+
+.try__submit {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-action);
+  color: var(--color-text-on-primary);
+  font-weight: 800;
+}
+
+.try__submit:disabled {
+  background: var(--color-surface-sunken);
+  color: var(--color-text-tertiary);
+  cursor: default;
+}
+
+.try__balance {
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.try__result {
+  padding: 16px 22px 20px;
+  border-top: 1px dashed var(--color-border);
+  display: grid;
+  gap: 10px;
+}
+
+.try__result-title {
+  font-size: var(--font-label);
+  font-weight: 700;
+}
+
+.try__outcomes {
+  display: flex;
+  gap: 8px;
+}
+
+.try__outcomes button {
+  flex: 1;
+  padding: 9px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  font-size: var(--font-label);
+  font-weight: 700;
+}
+
+.try__outcomes button[aria-pressed="true"] {
+  border-color: var(--color-action);
+  background: var(--color-primary-faint);
+}
+
+.try__settle {
+  min-height: 1.6em;
+  font-size: var(--font-label);
+  line-height: 1.6;
+}
+
+.try__settle[data-won="true"] b { color: var(--color-success); }
+.try__settle[data-won="false"] b { color: var(--app-danger); }
+
+.try__settle small {
+  display: block;
+  color: var(--color-text-tertiary);
+}
+
+.try__reset {
+  justify-self: start;
+  font-size: var(--font-caption);
+  color: var(--color-text-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.try__resolution {
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.try__copy .section-lead + .section-lead {
+  margin-top: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   반응형
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .payout__grid,
+  .try-wrap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .payout__rules,
+  .payout__xp {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .payout__rule:nth-child(3) {
+    border-left: 0;
+  }
+
+  .payout__rule:nth-child(n + 3) {
+    border-top: 1px solid var(--color-divider);
+  }
+
+  .season__tiers {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .season__badges {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .season__tiers {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .season__tier {
+    padding-top: 14px;
+  }
+}

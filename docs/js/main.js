@@ -19,6 +19,11 @@ import { initReveal, initCursorGlow } from "./shared/reveal.js";
 import { initHeroMarket } from "./pages/home/heroMarket.js";
 import { initHeroFacts } from "./pages/home/heroFacts.js";
 import { initFilm } from "./pages/home/film.js";
+import { initFlow } from "./pages/product/flow.js";
+import { initQuestionGrid } from "./pages/product/questionGrid.js";
+import { initPayout } from "./pages/product/payout.js";
+import { initSeason } from "./pages/product/season.js";
+import { initTryVote } from "./pages/product/tryVote.js";
 
 /**
  * 페이지마다 켤 모듈. 키는 <body data-page="..."> 값과 같다.
@@ -30,7 +35,13 @@ const PAGE_MODULES = {
     ["heroFacts", initHeroFacts],
     ["film", initFilm],
   ],
-  product: [],
+  product: [
+    ["flow", initFlow],
+    ["questions", initQuestionGrid],
+    ["payout", initPayout],
+    ["season", initSeason],
+    ["try", initTryVote],
+  ],
   proof: [],
   tech: [],
   principles: [],

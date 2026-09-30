@@ -1,0 +1,208 @@
+/* ==========================================================================
+   pages/product/questions.css — 질문 38종
+   계열 필터 칩 · 출제 유형 스위치 · 카드 그리드(누르면 판정 기준이 펼쳐진다)
+   동작: js/pages/product/questionGrid.js
+   ========================================================================== */
+
+.questions__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.questions__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.questions__filters .num {
+  margin-left: 2px;
+  opacity: 0.7;
+}
+
+/* 스위치 — 9월 30일에 실제로 나온 유형만 */
+.questions__seen {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--font-label);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.questions__seen::before {
+  content: "";
+  width: 34px;
+  height: 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-sunken);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.questions__seen::after {
+  content: "";
+  position: relative;
+  order: -1;
+  width: 14px;
+  height: 14px;
+  margin-right: -34px;
+  margin-left: 3px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--duration-base) var(--ease-out);
+  z-index: 1;
+}
+
+.questions__seen[aria-checked="true"]::before {
+  background: var(--color-action);
+}
+
+.questions__seen[aria-checked="true"]::after {
+  transform: translateX(14px);
+}
+
+.questions__summary {
+  margin-bottom: 18px;
+  font-size: var(--font-label);
+  color: var(--color-text-tertiary);
+}
+
+.questions__summary b {
+  color: var(--color-text-primary);
+}
+
+.questions__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  gap: 10px;
+  align-items: start;
+}
+
+.qcard {
+  --tone: var(--market-coral);
+  position: relative;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.qcard::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--tone);
+}
+
+.qcard__head {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 16px 14px 18px;
+  text-align: left;
+}
+
+.qcard__head:hover .qcard__q {
+  color: var(--color-text-accent);
+}
+
+.qcard__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: var(--font-micro);
+}
+
+.qcard__cat {
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+}
+
+.qcard__seen {
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-signal-soft);
+  color: var(--app-danger);
+  font-weight: 700;
+}
+
+.qcard__q {
+  font-size: var(--font-body);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.qcard__p {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.qcard__bar {
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-sunken);
+  overflow: hidden;
+}
+
+.qcard__bar i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--tone);
+}
+
+.qcard__pv {
+  font-size: var(--font-micro);
+  color: var(--color-text-tertiary);
+}
+
+.qcard__pv b {
+  color: var(--color-text-primary);
+}
+
+.qcard__res {
+  padding: 0 16px 14px 18px;
+  font-size: var(--font-caption);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.qcard__head[aria-expanded="true"] + .qcard__res {
+  border-top: 1px dashed var(--color-border);
+  padding-top: 12px;
+}
+
+.questions__foot {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 12px;
+}
+
+.questions__rule {
+  padding: 18px 20px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-tint);
+  font-size: var(--font-label);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.questions__rule b {
+  display: block;
+  margin-bottom: 4px;
+  font-size: var(--font-body);
+  color: var(--color-text-primary);
+}

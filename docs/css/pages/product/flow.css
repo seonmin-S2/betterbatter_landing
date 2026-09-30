@@ -1,0 +1,125 @@
+/* ==========================================================================
+   pages/product/flow.css — 사용 흐름 5장면
+   왼쪽 단계 목록 · 오른쪽 실제 앱 화면. 화면은 폰 목업 없이 윤곽선 하나로만 감싼다.
+   동작: js/pages/product/flow.js
+   ========================================================================== */
+
+.flow {
+  display: grid;
+  grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+  gap: clamp(24px, 3vw, 44px);
+  align-items: start;
+}
+
+.flow__steps {
+  display: grid;
+  gap: 6px;
+  position: sticky;
+  top: calc(var(--nav-height) + 24px);
+}
+
+.flow__step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  text-align: left;
+  color: var(--color-text-secondary);
+  transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.flow__step:hover {
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+}
+
+.flow__step[aria-selected="true"] {
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+.flow__num {
+  font-size: var(--font-label);
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+}
+
+.flow__step[aria-selected="true"] .flow__num {
+  color: var(--color-signal);
+}
+
+.flow__label {
+  font-size: var(--font-body);
+  font-weight: 700;
+}
+
+.flow__view {
+  min-width: 0;
+}
+
+.flow__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-float);
+  background: var(--color-surface-tint);
+}
+
+.flow__caption {
+  margin-top: 22px;
+}
+
+.flow__title {
+  font-size: clamp(18px, 1.7vw, 22px);
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+}
+
+.flow__body {
+  margin-top: 8px;
+  max-width: 62ch;
+  font-size: var(--font-body);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+/* 좁은 화면 — 단계 목록이 가로 스크롤 칩이 되고, 화면은 모바일 캡처 */
+@media (max-width: 760px) {
+  .flow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .flow__steps {
+    position: static;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .flow__step {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 9px 14px;
+    gap: 8px;
+  }
+
+  .flow__label {
+    font-size: var(--font-label);
+    white-space: nowrap;
+  }
+
+  .flow__img {
+    width: min(100%, 340px);
+    margin-inline: auto;
+  }
+}
