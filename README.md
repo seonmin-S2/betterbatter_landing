@@ -8,35 +8,38 @@
 수집한 경기 데이터 · 코드에서 확인한 수치를 정적으로 담아 둔 사이트입니다.
 
 빌드 도구가 없습니다. 순수 HTML + CSS + ES Module 로만 되어 있어서
-`docs/` 폴더를 그대로 정적 호스팅에 올리면 바로 동작합니다.
+**저장소 루트를 그대로 정적 호스팅에 올리면 바로 동작합니다.** (루트의 `index.html` 이 첫 화면)
 
-폴더는 **여섯 페이지(홈 · 제품 · 검증 · 기술 · 원칙 · 팀)를 기준으로** 나뉘어 있습니다.
-어떤 페이지를 고치려면 그 이름의 폴더만 보면 됩니다.
+사이트는 **여섯 페이지(홈 · 제품 · 검증 · 기술 · 원칙 · 팀)를 기준으로** 나뉘어 있습니다.
+어떤 페이지를 고치려면 그 이름의 HTML 과 `css/pages/<페이지>` · `js/pages/<페이지>` 만 보면 됩니다.
 
 ```
 betterbatter_landing/
-├── README.md      ← 지금 이 문서 (배포 방법 · 영상 목록 · 출처)
-└── docs/          ← 실제 사이트. 이 폴더가 통째로 배포됩니다
-    ├── index.html        홈
-    ├── product.html      제품
-    ├── proof.html        검증
-    ├── tech.html         기술
-    ├── principles.html   원칙
-    ├── team.html         팀
-    │
-    ├── assets/         브랜드 · 공유 카드 · 앱 화면 캡처 · 녹화 영상 · 티어/업적 이미지
-    ├── css/
-    │   ├── base/       여섯 페이지가 함께 쓰는 토큰 · 레이아웃 · 부품
-    │   └── pages/      home · product · proof · tech · principles · team
-    ├── js/
-    │   ├── main.js     진입점 — data-page 를 보고 그 페이지 모듈만 켠다
-    │   ├── shared/     상단바 · 푸터 · 등장 연출 · 헬퍼
-    │   ├── data/       여러 페이지가 함께 쓰는 내용 (목차 · 질문 38종 · 아이콘)
-    │   └── pages/      home · product · proof · tech · principles · team
-    │                   (동작 `*.js` + 그 페이지의 글과 수치 `*.data.js`)
-    ├── .nojekyll
-    └── README.md  ← 폴더 구조 · 파일별 내용 · 수정 가이드 (여기부터 읽으세요)
+├── README.md         ← 지금 이 문서 (배포 · 영상 목록 · 출처)
+├── index.html        홈
+├── product.html      제품
+├── proof.html        검증
+├── tech.html         기술
+├── principles.html   원칙
+├── team.html         팀
+│
+├── assets/           브랜드 · 공유 카드 · 앱 화면 캡처 · 녹화 영상 · 티어/업적 이미지
+├── css/
+│   ├── base/         여섯 페이지가 함께 쓰는 토큰 · 레이아웃 · 부품
+│   └── pages/        home · product · proof · tech · principles · team
+├── js/
+│   ├── main.js       진입점 — data-page 를 보고 그 페이지 모듈만 켠다
+│   ├── shared/       상단바 · 푸터 · 등장 연출 · 헬퍼
+│   ├── data/         여러 페이지가 함께 쓰는 내용 (목차 · 질문 38종 · 아이콘)
+│   └── pages/        페이지별 동작 `*.js` + 그 페이지의 글과 수치 `*.data.js`
+├── .nojekyll
+│
+└── docs/             ← 설명 문서만 둡니다 (사이트에 쓰이지 않음)
+    └── README.md     폴더 구조 · 파일별 내용 · 설계 규칙 · 수정 가이드 (여기부터 읽으세요)
 ```
+
+> README 가 두 개인 이유 — 루트 `README.md` 는 저장소 첫 화면에 보이는 **소개 · 배포 · 영상 목록**,
+> `docs/README.md` 는 사이트를 고칠 사람을 위한 **구조 · 수정 가이드**입니다.
 
 ---
 
@@ -50,17 +53,18 @@ betterbatter_landing/
    ```
 
 2. GitHub 저장소에서 **Settings → Pages** 로 이동합니다.
-3. **Source: Deploy from a branch** / **Branch: `main`** / **Folder: `/docs`** 를 선택하고 저장합니다.
+3. **Source: Deploy from a branch** / **Branch: `main`** / **Folder: `/ (root)`** 를 선택하고 저장합니다.
 
 1~2분 뒤 `https://seonmin-s2.github.io/betterbatter_landing/` 에서 열립니다.
 이후 `main` 에 푸시하면 자동으로 다시 배포됩니다.
 
 > 모든 경로가 상대 경로라 하위 경로(`/betterbatter_landing/`)에 배포해도 그대로 동작합니다.
-> `docs/.nojekyll` 은 Jekyll 전처리를 건너뛰게 하는 빈 표식 파일입니다. 지우지 마세요.
+> `.nojekyll` 은 Jekyll 전처리를 건너뛰게 하는 빈 표식 파일입니다. 지우지 마세요.
+> 루트의 모든 파일이 사이트 주소로 공개되므로, 공개하면 안 되는 메모 · 파일은 저장소에 두지 마세요.
 
 ### 공유 카드
 
-카카오톡 · 슬랙에 링크를 붙이면 `docs/assets/og-image.png` (1200×630) 가 미리보기로 뜹니다.
+카카오톡 · 슬랙에 링크를 붙이면 `assets/og-image.png` (1200×630) 가 미리보기로 뜹니다.
 `og:url` · `og:image` 는 위 GitHub Pages 기본 주소로 채워 두었습니다.
 **주소가 바뀌면 6개 HTML** 의 `og:url` · `og:image` · `twitter:image` 를 함께 고쳐 주세요.
 
@@ -72,7 +76,7 @@ betterbatter_landing/
 CORS 정책으로 막아 상단바조차 그려지지 않습니다. 간이 서버로 여세요.
 
 ```bash
-cd docs
+cd betterbatter_landing
 
 python -m http.server 5500     # Python
 npx serve .                    # Node
@@ -80,7 +84,7 @@ npx serve .                    # Node
 
 → http://localhost:5500
 
-VS Code 를 쓴다면 Live Server 확장을 설치하고 `docs/index.html` 우클릭 → *Open with Live Server*.
+VS Code 를 쓴다면 Live Server 확장을 설치하고 `index.html` 우클릭 → *Open with Live Server*.
 
 ---
 
@@ -88,18 +92,18 @@ VS Code 를 쓴다면 Live Server 확장을 설치하고 `docs/index.html` 우�
 
 | 하고 싶은 일 | 고칠 파일 |
 | --- | --- |
-| 기획 배경 문구 (홈) | `docs/index.html` 의 `#why` 섹션 — 지금은 "기획 배경 문구 OO 작성" 자리표시 |
-| 팀원 역할 · 소개 · 사진 | `docs/js/pages/team/team.data.js` (사진은 `docs/assets/team/` 에 두고 `avatar` 경로 입력) |
-| 서비스 · 저장소 · 발표자료 링크 | `docs/js/data/site.js` 의 `LINKS` (빈 값이면 버튼이 숨겨짐) |
-| 상단바 목차 · 페이지 구성 | `docs/js/data/site.js` 의 `NAV` (한 곳만 고치면 전 페이지 반영) |
-| 질문 38종 · 판정 기준 | `docs/js/data/questions.js` |
-| 배당 · 경험치 · 티어 수치 | `docs/js/pages/product/product.data.js` |
-| 검증 수치 · 표 | `docs/js/pages/proof/proof.data.js` |
-| 아키텍처 · 파이프라인 · 체인 · 기술 스택 | `docs/js/pages/tech/tech.data.js` |
-| 포인트 원칙 · 법적 검토 · 개인정보 | `docs/js/pages/principles/principles.data.js` |
-| 브랜드 색 | `docs/css/base/00-tokens.css` 의 `[1] 원색` 블록 |
-| 섹션 제목 · 순서 | 해당 `docs/*.html` |
-| 영상 교체 | `docs/assets/videos/<이름>-d.mp4` · `-m.mp4` 덮어쓰기 (포스터는 같은 이름의 `.webp`) |
+| 기획 배경 문구 (홈) | `index.html` 의 `#why` 섹션 — 지금은 "기획 배경 문구 OO 작성" 자리표시 |
+| 팀원 역할 · 소개 · 사진 | `js/pages/team/team.data.js` (사진은 `assets/team/` 에 두고 `avatar` 경로 입력) |
+| 서비스 · 저장소 · 발표자료 링크 | `js/data/site.js` 의 `LINKS` (빈 값이면 버튼이 숨겨짐) |
+| 상단바 목차 · 페이지 구성 | `js/data/site.js` 의 `NAV` (한 곳만 고치면 전 페이지 반영) |
+| 질문 38종 · 판정 기준 | `js/data/questions.js` |
+| 배당 · 경험치 · 티어 수치 | `js/pages/product/product.data.js` |
+| 검증 수치 · 표 | `js/pages/proof/proof.data.js` |
+| 아키텍처 · 파이프라인 · 체인 · 기술 스택 | `js/pages/tech/tech.data.js` |
+| 포인트 원칙 · 법적 검토 · 개인정보 | `js/pages/principles/principles.data.js` |
+| 브랜드 색 | `css/base/00-tokens.css` 의 `[1] 원색` 블록 |
+| 섹션 제목 · 순서 | 해당 `*.html` |
+| 영상 교체 | `assets/videos/<이름>-d.mp4` · `-m.mp4` 덮어쓰기 (포스터는 같은 이름의 `.webp`) |
 
 자세한 폴더 구조와 설계 규칙은 **[`docs/README.md`](docs/README.md)** 에 있습니다.
 
@@ -112,10 +116,10 @@ VS Code 를 쓴다면 Live Server 확장을 설치하고 `docs/index.html` 우�
 
 | 기능 | 내용 | 데스크톱 (1440×900) | 모바일 (780×1688) |
 | --- | --- | --- | --- |
-| 라이브 참여 | 공수 교대부터 마감까지, 한 번의 참여 | [영상 보기](docs/assets/videos/live-flow-d.mp4) · 23초 | [영상 보기](docs/assets/videos/live-flow-m.mp4) · 23초 |
-| 커뮤니티 | 경기 이야기를 나누는 커뮤니티 | [영상 보기](docs/assets/videos/community-d.mp4) · 13초 | [영상 보기](docs/assets/videos/community-m.mp4) · 12초 |
-| 시즌 랭킹 | 경험치가 쌓이는 시즌 랭킹 | [영상 보기](docs/assets/videos/rankings-d.mp4) · 9초 | [영상 보기](docs/assets/videos/rankings-m.mp4) · 9초 |
-| 마이페이지 | 활동 기록과 업적 | [영상 보기](docs/assets/videos/mypage-d.mp4) · 16초 | [영상 보기](docs/assets/videos/mypage-m.mp4) · 14초 |
+| 라이브 참여 | 공수 교대부터 마감까지, 한 번의 참여 | [영상 보기](assets/videos/live-flow-d.mp4) · 23초 | [영상 보기](assets/videos/live-flow-m.mp4) · 23초 |
+| 커뮤니티 | 경기 이야기를 나누는 커뮤니티 | [영상 보기](assets/videos/community-d.mp4) · 13초 | [영상 보기](assets/videos/community-m.mp4) · 12초 |
+| 시즌 랭킹 | 경험치가 쌓이는 시즌 랭킹 | [영상 보기](assets/videos/rankings-d.mp4) · 9초 | [영상 보기](assets/videos/rankings-m.mp4) · 9초 |
+| 마이페이지 | 활동 기록과 업적 | [영상 보기](assets/videos/mypage-d.mp4) · 16초 | [영상 보기](assets/videos/mypage-m.mp4) · 14초 |
 
 ---
 

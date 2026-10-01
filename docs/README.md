@@ -3,7 +3,8 @@
 실시간 야구 경기 데이터 기반 예측 마켓 **BetterBatter** 의 소개 사이트입니다.
 
 **빌드 도구가 전혀 없습니다.** 순수 HTML + CSS + ES Module 로만 만들어져 있어서,
-이 폴더를 정적 호스팅에 그대로 올리면 바로 동작합니다. (npm install 없음, 번들러 없음)
+저장소 루트를 정적 호스팅에 그대로 올리면 바로 동작합니다. (npm install 없음, 번들러 없음)
+사이트 파일은 모두 **저장소 루트**에 있고, 이 `docs/` 폴더에는 설명 문서만 둡니다.
 
 > 이 문서는 **폴더 구조와 수정 방법**을 다룹니다.
 > 배포 방법과 기능별 영상 목록은 저장소 루트의 [`../README.md`](../README.md) 를 보세요.
@@ -21,7 +22,7 @@ CORS 정책으로 막기 때문에 상단바조차 그려지지 않습니다. (1
 아무 간이 서버나 하나 띄우면 됩니다.
 
 ```bash
-cd docs
+cd betterbatter_landing     # 저장소 루트
 
 python -m http.server 5500     # Python
 npx serve .                    # Node
@@ -82,15 +83,17 @@ HTML 에는 빈 껍데기만 두고,
 한 페이지만 쓰면 `pages/<페이지>`.**
 
 ```
-docs/
+betterbatter_landing/          저장소 루트 = 사이트 루트
 ├── index.html                 홈
 ├── product.html               제품
 ├── proof.html                 검증
 ├── tech.html                  기술
 ├── principles.html            원칙
 ├── team.html                  팀
-├── .nojekyll                  GitHub Pages 용 표식
-├── README.md                  이 문서
+├── .nojekyll                  GitHub Pages 용 표식 (Jekyll 전처리 건너뜀)
+├── README.md                  소개 · 배포 · 영상 목록
+├── docs/
+│   └── README.md              이 문서 (구조 · 수정 가이드) — 사이트에 쓰이지 않음
 │
 ├── assets/
 │   ├── og-image.png           카카오톡 · 슬랙 공유 카드 (1200×630)
@@ -272,6 +275,8 @@ Chrome / Edge / Safari / Firefox 최신 버전 기준입니다.
 ---
 
 ## 9. 출처
+
+아래 경로는 모두 **팀 저장소(S15P21B203) 기준**입니다.
 
 - 아이콘: [lucide](https://lucide.dev) (ISC License) © Lucide Contributors
 - 서체: Noto Sans KR · Archivo · Barlow Condensed · IBM Plex Mono (OFL, Google Fonts)
