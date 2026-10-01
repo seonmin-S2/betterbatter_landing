@@ -1,0 +1,319 @@
+/* ==========================================================================
+   pages/principles/principles.css — 무료 가상 포인트 · 법적 검토 · 개인정보
+   동작: js/pages/principles/principles.js
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   포인트 흐름 — 열린 길 | 서비스 경계 | 막힌 길
+   -------------------------------------------------------------------------- */
+.pflow {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) 56px minmax(0, 1fr);
+  align-items: stretch;
+  padding: clamp(22px, 2.8vw, 32px);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(160deg, var(--stage-ink-3), var(--stage-ink) 70%);
+}
+
+.pflow__open {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-content: center;
+}
+
+.pflow__open li {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-on-stage-line);
+  font-size: var(--font-label);
+  font-weight: 700;
+  color: var(--color-on-stage);
+}
+
+.pflow__open li .num {
+  font-size: var(--font-micro);
+  font-weight: 600;
+  color: var(--color-signal-on-stage);
+}
+
+.pflow__open li:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: -19px;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  color: var(--color-on-stage-dim);
+}
+
+.pflow__wall {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.pflow__wall::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 3px solid var(--color-signal-on-stage);
+  transform: translateX(-50%);
+}
+
+.pflow__wall span {
+  position: relative;
+  padding: 6px 4px;
+  background: var(--stage-ink);
+  writing-mode: vertical-rl;
+  font-size: var(--font-micro);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-signal-on-stage);
+}
+
+.pflow__closed {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  align-content: center;
+}
+
+.pflow__closed li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px;
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--color-on-stage-line);
+  font-size: var(--font-caption);
+  color: var(--color-on-stage-dim);
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in srgb, var(--color-signal-on-stage) 70%, transparent);
+}
+
+.pflow__closed svg {
+  flex-shrink: 0;
+  color: var(--color-signal-on-stage);
+}
+
+/* --------------------------------------------------------------------------
+   포인트 규칙 카드
+   -------------------------------------------------------------------------- */
+.prules {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.prule {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 22px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.prule__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-faint);
+  color: var(--color-text-accent);
+}
+
+.prule b {
+  font-size: var(--font-body);
+  color: var(--color-text-primary);
+}
+
+.prule p {
+  font-size: var(--font-label);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   법적 검토 — 조항마다 "문제 삼는 것 → 설계 대응"
+   -------------------------------------------------------------------------- */
+.laws {
+  display: grid;
+  gap: 12px;
+}
+
+.law {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 20px 28px;
+  padding: clamp(20px, 2.4vw, 28px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.law__name {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+}
+
+.law__name b {
+  font-size: var(--font-body);
+  color: var(--color-text-primary);
+}
+
+.law__name span {
+  justify-self: start;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-tint);
+  font-size: var(--font-caption);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.law__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: var(--font-micro);
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+}
+
+.law__risk p {
+  font-size: var(--font-label);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.law__answer ul {
+  display: grid;
+  gap: 6px;
+}
+
+.law__answer li {
+  position: relative;
+  padding-left: 22px;
+  font-size: var(--font-label);
+  line-height: 1.6;
+  color: var(--color-text-primary);
+}
+
+.law__answer li svg {
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  color: var(--color-success);
+}
+
+.law__note {
+  margin-top: 16px;
+  font-size: var(--font-caption);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   개인정보
+   -------------------------------------------------------------------------- */
+.privacy__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.privacy__item {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 22px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-tint);
+}
+
+.privacy__item b {
+  font-size: var(--font-body);
+  color: var(--color-text-primary);
+}
+
+.privacy__item p {
+  font-size: var(--font-label);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   좁은 화면
+   -------------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .pflow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .pflow__wall {
+    height: 44px;
+  }
+
+  .pflow__wall::before {
+    top: 50%;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    border-left: 0;
+    border-top: 3px solid var(--color-signal-on-stage);
+    transform: translateY(-50%);
+  }
+
+  .pflow__wall span {
+    writing-mode: horizontal-tb;
+    padding: 2px 10px;
+  }
+
+  .law {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  }
+
+  .law__name {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  .prules,
+  .privacy__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .pflow__open {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .pflow__open li:not(:last-child)::after {
+    content: "↓";
+    top: auto;
+    bottom: -21px;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .prules,
+  .privacy__grid,
+  .law {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

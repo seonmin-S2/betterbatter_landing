@@ -33,6 +33,8 @@ import { initArchitecture } from "./pages/tech/architecture.js";
 import { initPipeline } from "./pages/tech/pipeline.js";
 import { initChain } from "./pages/tech/chain.js";
 import { initStacks } from "./pages/tech/stacks.js";
+import { initPrinciples } from "./pages/principles/principles.js";
+import { initMembers } from "./pages/team/members.js";
 
 /**
  * 페이지마다 켤 모듈. 키는 <body data-page="..."> 값과 같다.
@@ -64,8 +66,8 @@ const PAGE_MODULES = {
     ["chain", initChain],
     ["stacks", initStacks],
   ],
-  principles: [],
-  team: [],
+  principles: [["principles", initPrinciples]],
+  team: [["members", initMembers]],
 };
 
 /** 이름을 붙여 실행 — 어느 모듈에서 났는지 콘솔에 남긴다. */

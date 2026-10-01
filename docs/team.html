@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="css/base/03-motion.css">
   <link rel="stylesheet" href="css/base/04-components.css">
   <link rel="stylesheet" href="css/base/05-closing.css">
+  <link rel="stylesheet" href="css/pages/team/team.css">
 
   <script type="module" src="js/main.js"></script>
 
@@ -79,17 +80,25 @@
     <section class="page-hero" id="top">
       <div class="shell shell--wide" data-reveal-group="80">
         <p class="page-hero__index" data-reveal="fade">No. 05 &nbsp;Team</p>
-        <h1 class="page-hero__title" data-reveal>팀</h1>
+        <h1 class="page-hero__title" data-reveal>함께 만든 사람들</h1>
+        <p class="page-hero__lead" data-reveal>
+          여섯 명이 함께 BetterBatter를 만들었습니다.
+        </p>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         팀원 소개 — 데이터는 js/pages/team/team.data.js
+         역할 · 소개 · 사진은 그 파일에서 채운다
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="members">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Members</p>
           <h2 class="section-title" data-reveal>팀원 소개</h2>
         </div>
-        <div class="placeholder" data-reveal>6장에서 작성</div>
+        <ul class="team__meta" data-reveal="fade" aria-label="팀 정보"></ul>
+        <ul class="members"></ul>
       </div>
     </section>
 

@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="css/base/03-motion.css">
   <link rel="stylesheet" href="css/base/04-components.css">
   <link rel="stylesheet" href="css/base/05-closing.css">
+  <link rel="stylesheet" href="css/pages/principles/principles.css">
 
   <script type="module" src="js/main.js"></script>
 
@@ -79,37 +80,77 @@
     <section class="page-hero" id="top">
       <div class="shell shell--wide" data-reveal-group="80">
         <p class="page-hero__index" data-reveal="fade">No. 04 &nbsp;Principles</p>
-        <h1 class="page-hero__title" data-reveal>원칙</h1>
+        <h1 class="page-hero__title" data-reveal>돈이 오가지 않는<br>예측 게임</h1>
+        <p class="page-hero__lead" data-reveal>
+          예측 마켓은 설계를 조금만 잘못해도 도박이 됩니다. 그래서 포인트가 현금과 닿는 길을 처음부터 만들지 않았고,
+          개인정보는 서비스에 필요한 만큼만 받도록 정했습니다.
+        </p>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         무료 가상 포인트 — 글은 principles.data.js
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="points">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Free Points</p>
-          <h2 class="section-title" data-reveal>무료 가상 포인트</h2>
+          <h2 class="section-title" data-reveal>포인트는 서비스 밖으로<br>나가지 않습니다</h2>
+          <p class="section-lead" data-reveal>
+            포인트는 같은 경기 안에서 참여하고 정산되는 기록일 뿐입니다. 현금 · 상품 · 다른 사용자 · 다음 경기,
+            어느 쪽으로도 나가는 길이 없습니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>6장에서 작성</div>
+
+        <!-- 포인트 흐름 — 열린 길과 막힌 길 -->
+        <div class="pflow" data-reveal role="img"
+             aria-label="포인트는 경기 입장 시 지급되어 질문에 참여하고 같은 경기 잔액으로 정산되는 길만 열려 있고, 현금·가상자산, 상품, 다른 사용자, 다음 경기로 가는 길은 막혀 있다">
+          <ol class="pflow__open"></ol>
+          <div class="pflow__wall"><span>서비스 경계</span></div>
+          <ul class="pflow__closed"></ul>
+        </div>
+
+        <ul class="prules" data-reveal-group="60"></ul>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         법적 검토 — 기획 단계 팀 검토
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="law">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Legal Review</p>
-          <h2 class="section-title" data-reveal>법적 검토</h2>
+          <h2 class="section-title" data-reveal>법이 문제 삼는 요소를<br>설계에서 지웠습니다</h2>
+          <p class="section-lead" data-reveal>
+            기획 단계에서 팀이 관련 법령을 검토하고, 각 조항이 문제 삼는 요소를 서비스 설계에서 하나씩 지웠습니다.
+            공통으로 걸리는 것은 "재물이나 재산상 이익"이었고, 답도 하나였습니다. 돈과 연결되지 않는 포인트입니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>6장에서 작성</div>
+
+        <div class="laws"></div>
+
+        <p class="law__note" data-reveal="fade">
+          기획 단계의 팀 내부 검토를 옮긴 것으로, 법적 판단을 보증하는 문서가 아닙니다.
+          검토 당시 순위에 따른 물품 경품은 위험 요소로 남았기 때문에, 랭킹과 업적은 서비스 안의 표시로만 두었습니다.
+        </p>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════════════════
+         개인정보 보호 — 처리방침 1.0 (2026-09-15 시행)
+         ══════════════════════════════════════════════════════════ -->
     <section class="section" id="privacy">
       <div class="shell shell--wide">
         <div class="section-head" data-reveal-group>
           <p class="eyebrow" data-reveal="fade">Privacy</p>
-          <h2 class="section-title" data-reveal>개인정보 보호</h2>
+          <h2 class="section-title" data-reveal>받지 않을 정보와<br>지울 시점을 먼저 정했습니다</h2>
+          <p class="section-lead" data-reveal>
+            개인정보처리방침 1.0(2026년 9월 15일 시행)을 서비스에 게시했습니다. 게시 전에 접속 로그와 오류 기록에
+            개인정보가 남는 경로를 점검해 고쳤고, 확인하지 못한 것은 확인했다고 적지 않았습니다.
+          </p>
         </div>
-        <div class="placeholder" data-reveal>6장에서 작성</div>
+        <ul class="privacy__grid"></ul>
       </div>
     </section>
 

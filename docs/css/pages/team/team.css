@@ -1,0 +1,106 @@
+/* ==========================================================================
+   pages/team/team.css — 팀원 소개
+   동작: js/pages/team/members.js
+   ========================================================================== */
+
+.team__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.team__meta li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: var(--font-caption);
+  color: var(--color-text-tertiary);
+}
+
+.team__meta b {
+  font-size: var(--font-label);
+  color: var(--color-text-primary);
+}
+
+.members {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.member {
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 8px;
+  padding: 26px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.member__avatar {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--color-surface-sunken);
+}
+
+.member__avatar.is-empty {
+  display: grid;
+  place-items: center;
+  background: var(--color-primary-faint);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--color-text-accent);
+}
+
+.member__name {
+  font-size: clamp(18px, 1.6vw, 21px);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.member__role {
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-tint);
+  font-size: var(--font-caption);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.member__intro {
+  font-size: var(--font-label);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+/* 아직 쓰지 않은 문구 — 눈에 띄게 점선으로 둘러 둔다 */
+.placeholder-text {
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  padding: 3px 10px;
+  background: transparent;
+  color: var(--color-text-tertiary);
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .members {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .members {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
