@@ -219,7 +219,7 @@ function renderFooter() {
         <div>
           <img class="footer-word" src="assets/brand/wordmark.webp" alt="BetterBatter" width="1583" height="446">
           <p class="footer-tagline">
-            MLB 경기를 5초 간격으로 따라가며 하프이닝마다 예측 질문을 열고,
+            MLB 경기를 3초 간격으로 따라가며 하프이닝마다 예측 질문을 열고,
             무료 가상 포인트로 참여한 결과를 경기 데이터로 판정 · 정산하는 서비스입니다.
           </p>
         </div>

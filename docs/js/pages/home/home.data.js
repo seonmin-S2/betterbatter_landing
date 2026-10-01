@@ -4,8 +4,9 @@
  * 홈 페이지의 글과 수치.
  *
  * 출처
- *   · 요약 수치      README.md (base_probabilities 8,550행 · half_inning_features 43,202행 ·
- *                    5초 폴링) · api/.../QuestionType.java (질문 유형 38종)
+ *   · 요약 수치      README.md (base_probabilities 8,550행 · half_inning_features 43,202행) ·
+ *                    api/.../QuestionType.java (질문 유형 38종)
+ *   · 추적 간격      api/src/main/resources/application.yml (app.gumbo.poll-interval-seconds: 3)
  *   · 히어로 질문    운영 서버 수집본 — 2026-09-30 컵스 대 파드리스(gamePk 849843)에서
  *                    실제로 생성된 하프이닝 질문 · 기저확률 · 판정 기준 문구
  *   · 참여 비율      예시 값이다. 이 경기의 실제 마켓은 참여자가 없어 모두 무효 처리됐다.
@@ -16,7 +17,7 @@ export const HERO_FACTS = [
   { value: "38", suffix: "종", label: "질문 유형" },
   { value: "8550", suffix: "", label: "상황별 확률 조합" },
   { value: "43202", suffix: "", label: "집계한 하프이닝" },
-  { value: "5", suffix: "초", label: "경기 추적 간격" },
+  { value: "3", suffix: "초", label: "경기 추적 간격" },
 ];
 
 /**
