@@ -496,36 +496,6 @@ body.is-locked {
   gap: 8px;
 }
 
-/* 페이지 사이 이동 — 각 페이지 맨 아래 */
-.page-next {
-  padding-block: calc(var(--section-gap) * 0.5) clamp(56px, 7vw, 96px);
-  border-top: 1px solid var(--color-border);
-}
-
-.page-next__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.page-next__label {
-  font-size: var(--font-micro);
-  font-weight: 700;
-  letter-spacing: var(--tracking-eyebrow);
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
-}
-
-.page-next__title {
-  margin-top: 8px;
-  font-size: clamp(20px, 1.9vw, 26px);
-  font-weight: 800;
-  letter-spacing: var(--tracking-tight);
-  word-break: keep-all;
-}
-
 /* --------------------------------------------------------------------------
    섹션 셸
    -------------------------------------------------------------------------- */
