@@ -45,7 +45,7 @@ export const NAV = [
     file: "product.html",
     children: [
       { hash: "flow", label: "사용 흐름" },
-      { hash: "questions", label: "질문 38종" },
+      { hash: "questions", label: "질문 테이블" },
       { hash: "payout", label: "파리뮤추얼 정산" },
       { hash: "season", label: "시즌 · 티어 · 업적" },
       { hash: "try", label: "직접 해보기" },

@@ -24,8 +24,10 @@
   opacity: 0.7;
 }
 
-/* 스위치 — 9월 30일에 실제로 나온 유형만 */
+/* 스위치 — 9월 30일에 실제로 나온 유형만
+   트랙(::before)은 글자 앞에 자리를 차지하고, 손잡이(::after)는 트랙 위에 절대 위치로 얹는다 */
 .questions__seen {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -36,35 +38,36 @@
 
 .questions__seen::before {
   content: "";
-  width: 34px;
+  flex: 0 0 auto;
+  width: 36px;
   height: 20px;
   border-radius: var(--radius-pill);
   background: var(--color-surface-sunken);
   box-shadow: inset 0 0 0 1px var(--color-border);
-  transition: background var(--duration-fast) var(--ease-out);
+  transition: background var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .questions__seen::after {
   content: "";
-  position: relative;
-  order: -1;
+  position: absolute;
+  top: 50%;
+  left: 3px;
   width: 14px;
   height: 14px;
-  margin-right: -34px;
-  margin-left: 3px;
   border-radius: 50%;
   background: var(--color-surface);
   box-shadow: var(--shadow-xs);
+  transform: translateY(-50%);
   transition: transform var(--duration-base) var(--ease-out);
-  z-index: 1;
 }
 
 .questions__seen[aria-checked="true"]::before {
   background: var(--color-action);
+  box-shadow: inset 0 0 0 1px var(--color-action);
 }
 
 .questions__seen[aria-checked="true"]::after {
-  transform: translateX(14px);
+  transform: translate(16px, -50%);
 }
 
 .questions__summary {

@@ -1,8 +1,9 @@
 /**
  * js/pages/product/questionGrid.js
  * ---------------------------------------------------------------------------
- * 질문 38종 — 계열 필터 · "9월 30일에 출제된 유형만" 스위치 · 카드 그리드.
- * 카드를 누르면 판정 기준이 펼쳐진다.
+ * 질문 테이블 — 계열 필터 · "9월 30일에 출제된 유형만" 스위치 · 카드 그리드.
+ * 카드는 2025 시즌 43,202개 하프이닝에서 실제로 일어난 비율(p)이 높은 순으로 놓는다.
+ * 계열은 카드 색과 필터로 구분한다. 카드를 누르면 판정 기준이 펼쳐진다.
  *
  * 데이터: js/data/questions.js (서버 코드 · 확률 시드에서 옮긴 값)
  */
@@ -24,7 +25,7 @@ export function initQuestionGrid() {
 
   const seenTypes = QUESTIONS.filter((q) => q.seen > 0).length;
   if (summary) {
-    summary.innerHTML = `2026-09-30 수집한 4경기 <b class="num">${COLLECTED_TOTAL}</b>개 질문에 <b class="num">${seenTypes}</b>개 유형이 나왔습니다`;
+    summary.innerHTML = `2026-09-30 수집한 4경기 <b class="num">${COLLECTED_TOTAL}</b>개 질문에 <b class="num">${seenTypes}</b>개 유형이 나왔습니다 · 2025 시즌 발생 비율이 높은 순`;
   }
 
   let category = "ALL";
@@ -50,7 +51,8 @@ export function initQuestionGrid() {
   });
 
   /* 카드 — 한 번만 만들고 필터는 hidden 으로만 바꾼다 */
-  const cards = QUESTIONS.map((q) => {
+  const byRate = [...QUESTIONS].sort((a, b) => b.p - a.p);
+  const cards = byRate.map((q) => {
     const cat = catById[q.cat];
     const card = el("article", {
       className: "qcard",
