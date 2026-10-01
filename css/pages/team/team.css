@@ -62,10 +62,24 @@
   color: var(--color-text-accent);
 }
 
+/* 이름과 역할 칩을 한 줄에 — 좁으면 칩이 다음 줄로 넘어간다 */
+.member__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+
 .member__name {
   font-size: clamp(18px, 1.6vw, 21px);
   font-weight: 800;
   color: var(--color-text-primary);
+}
+
+.member__roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .member__role {

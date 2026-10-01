@@ -2,6 +2,8 @@
  * js/pages/team/members.js
  * ---------------------------------------------------------------------------
  * 팀원 카드 6장과 팀 요약 줄. 데이터는 team.data.js.
+ * 이름 옆에 역할 칩(roles)을 나란히 두고, 아래에 소개를 둔다.
+ * 소개의 " · " 앞 공백은 줄바꿈되지 않게 바꿔, 가운뎃점이 줄 맨 앞에 오지 않게 한다.
  * avatar 가 비어 있으면 이름 첫 글자를 원 안에 보여 준다.
  */
 
@@ -29,9 +31,11 @@ export function initMembers() {
       className: "member",
       attrs: { "data-reveal": "" },
       html: `${avatar}
-             <b class="member__name">${escapeHtml(m.name)}</b>
-             <span class="member__role${isPlaceholder(m.role) ? " placeholder-text" : ""}">${escapeHtml(m.role)}</span>
-             <p class="member__intro${isPlaceholder(m.intro) ? " placeholder-text" : ""}">${escapeHtml(m.intro)}</p>`,
+             <div class="member__head">
+               <b class="member__name">${escapeHtml(m.name)}</b>
+               <ul class="member__roles" aria-label="역할">${(m.roles ?? []).map((r) => `<li class="member__role">${escapeHtml(r)}</li>`).join("")}</ul>
+             </div>
+             <p class="member__intro${isPlaceholder(m.intro) ? " placeholder-text" : ""}">${escapeHtml(m.intro).replace(/ · /g, "\u00a0· ")}</p>`,
     }));
   });
   if (grid) window.__bbObserveReveal?.(grid);
