@@ -115,7 +115,7 @@ betterbatter_landing/          저장소 루트 = 사이트 루트
 │   │
 │   └── pages/
 │       ├── home/              hero.css (라이브 마켓 무대) · glance.css (기능 요약) · film.css (영상)
-│       ├── product/           flow.css (사용 흐름) · questions.css (질문 테이블) · payout.css (정산 · 시즌 · 체험)
+│       ├── product/           flow.css (사용 흐름) · questions.css (질문 테이블) · payout.css (정산 · 시즌) · vote.css (직접 해보기 — 앱 투표 화면)
 │       ├── proof/             selection.css (선정 · 계산기 · 분포) · oracle.css (판정 · 마감) · ops.css (운영)
 │       ├── tech/              tech.css (아키텍처 · 배포 · 파이프라인 · 체인 · 스택)
 │       ├── principles/        principles.css (포인트 흐름 · 규칙 · 법령 · 개인정보)
@@ -146,7 +146,7 @@ betterbatter_landing/          저장소 루트 = 사이트 루트
         │   ├── payout.js          포인트 규칙 · 배당 계산 예시 · 경험치 규칙
         │   ├── payoutMath.js      ★ 배당 공식 (서버 Payout.java 와 같은 식)
         │   ├── season.js          티어 사다리 · 업적
-        │   ├── tryVote.js         직접 해보기 카드
+        │   ├── tryVote.js         직접 해보기 — 앱의 투표 화면(PredictionVote.tsx)을 같은 마크업으로 옮김
         │   └── product.data.js    ★ 사용 흐름 · 포인트 · 배당 · 경험치 · 티어 · 업적 · 체험 질문
         ├── proof/
         │   ├── selection.js       점수 요소 · 제외 규칙 · 폴백 · 튜닝 표 · 실제 출제 분포
@@ -176,7 +176,8 @@ betterbatter_landing/          저장소 루트 = 사이트 루트
    `*.data.js` 에 두고 JS 가 렌더합니다. 섹션 제목과 긴 설명 문단만 HTML 에 있습니다.
 2. **색은 토큰을 경유한다.** 색은 `var(--color-*)` · `var(--market-*)` · `var(--vote-*)` 로 씁니다.
    `css/base/00-tokens.css` 의 `[1] 원색` 블록이 원본이며, 앱(`ui/src/styles.css`)의 값과 같습니다.
-   (배경 분위기 레이어의 반투명 그라데이션 몇 줄만 `02-layout.css` 에 값이 직접 있습니다)
+   (배경 분위기 레이어의 반투명 그라데이션 몇 줄은 `02-layout.css` 에 값이 직접 있고,
+   직접 해보기의 `css/pages/product/vote.css` 「앱 원본」 블록은 앱 화면과 똑같이 보이도록 앱 CSS 값을 그대로 복사했습니다)
 3. **연출은 `[data-reveal]` 하나로 통일.** `js/shared/reveal.js` 가 관찰해서 `.is-in` 을 붙입니다.
    JS 로 나중에 만든 요소는 `window.__bbObserveReveal(부모)` 로 등록합니다.
 4. **폰 목업을 쓰지 않는다.** 앱 화면은 폰 껍데기 없이 윤곽선 하나로만 감쌉니다.
@@ -239,7 +240,7 @@ betterbatter_landing/          저장소 루트 = 사이트 루트
 | 홈 실제 화면 | 영상 4편 탭 전환 · 좁은 화면은 세로 영상 |
 | 제품 사용 흐름 | 단계 5개 탭 (마우스 · ← → Home End) |
 | 제품 질문 38종 | 계열 필터 · "9/30 출제된 유형만" 스위치 · 카드를 누르면 판정 기준 펼침 |
-| 제품 직접 해보기 | YES/NO · 포인트 조절 → 서버와 같은 공식의 배당 · 수령액 → 판정 결과 골라 보기 (서버로 보내지 않음) |
+| 제품 직접 해보기 | 앱의 실제 투표 화면 — 들어올 때 YES/NO 맞부딪힘 연출 · 판정 기준 말풍선 · 포인트 입력 · 보유 전부 · ±50/100 → 서버와 같은 공식의 적중 시 예상 → 참여 후 판정 결과 골라 보기 (서버로 보내지 않음) |
 | 검증 점수 계산기 | 질문 유형 · 지금 확률 · 출제 횟수를 바꾸면 세 요소와 최종 점수가 다시 계산됨 |
 | 전역 | 스크롤 진행바 · 우측 하단 맨 위로 버튼 · 등장 연출 |
 

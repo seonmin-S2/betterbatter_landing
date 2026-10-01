@@ -48,6 +48,7 @@
   <link rel="stylesheet" href="css/pages/product/flow.css">
   <link rel="stylesheet" href="css/pages/product/questions.css">
   <link rel="stylesheet" href="css/pages/product/payout.css">
+  <link rel="stylesheet" href="css/pages/product/vote.css">
 
   <script type="module" src="js/main.js"></script>
 
@@ -228,8 +229,8 @@
             <p class="eyebrow" data-reveal="fade">Try It</p>
             <h2 class="section-title" data-reveal>여기서 바로<br>한 번 눌러보세요</h2>
             <p class="section-lead" data-reveal>
-              9월 30일 경기에서 실제로 생성된 질문에 예시 참여량(YES 3,900P · NO 6,200P)을 붙였습니다.
-              배당과 수령액은 서버와 같은 공식으로 계산합니다.
+              앱에서 실제로 쓰는 투표 화면을 그대로 옮겼습니다. 질문은 9월 30일 경기에서 실제로 생성된 것이고,
+              참여량(YES 3,900P · NO 6,200P)은 예시입니다. 적중 시 예상은 서버와 같은 공식으로 계산합니다.
             </p>
             <p class="section-lead" data-reveal>
               참여한 뒤에는 판정 결과를 골라 적중과 미적중을 모두 확인할 수 있습니다.
@@ -237,41 +238,8 @@
             </p>
           </div>
 
-          <div class="try" data-reveal="scale">
-            <div class="try__top">
-              <p class="try__eyebrow">체험 · <span class="try__label"></span></p>
-              <p class="try__question"></p>
-              <p class="try__base-row">과거 표본 기준 확률 <b class="try__base num"></b></p>
-            </div>
-            <div class="try__sides">
-              <button class="try__side" type="button" data-side="yes" aria-pressed="false"><b class="num"><span data-try-yes></span>%</b><span>YES · 그렇다</span></button>
-              <button class="try__side" type="button" data-side="no" aria-pressed="false"><b class="num"><span data-try-no></span>%</b><span>NO · 아니다</span></button>
-            </div>
-            <div class="try__body">
-              <div class="try__amount-row">
-                <p class="try__amount num"><span data-try-amount></span><small>P</small></p>
-                <p class="try__expect">적중 시 예상<b class="num" data-try-expect></b><span data-try-ratio></span></p>
-              </div>
-              <div class="try__steps">
-                <button type="button" data-step="-100">−100</button>
-                <button type="button" data-step="-50">−50</button>
-                <button type="button" data-step="50">+50</button>
-                <button type="button" data-step="100">+100</button>
-              </div>
-              <button class="try__submit" type="button" disabled></button>
-              <p class="try__balance">보유 <b class="num" data-try-balance></b>P · 최소 10P, 10P 단위</p>
-            </div>
-            <div class="try__result" hidden>
-              <p class="try__result-title">하프이닝이 끝났다고 치고, 판정 결과를 골라 보세요</p>
-              <div class="try__outcomes">
-                <button type="button" data-outcome="yes" aria-pressed="false">YES로 판정</button>
-                <button type="button" data-outcome="no" aria-pressed="false">NO로 판정</button>
-              </div>
-              <p class="try__settle" aria-live="polite"></p>
-              <p class="try__resolution"></p>
-              <button class="try__reset" type="button">처음부터 다시</button>
-            </div>
-          </div>
+          <!-- 앱의 실제 투표 화면 — js/pages/product/tryVote.js 가 PredictionVote.tsx 와 같은 마크업으로 채운다 -->
+          <div class="bb-vote" data-reveal="scale"></div>
         </div>
       </div>
     </section>
