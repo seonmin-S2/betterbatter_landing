@@ -236,7 +236,7 @@
             <ul class="oracle__chips"></ul>
           </div>
           <div class="panel" data-reveal>
-            <p class="panel__title">근거는 해시로 고정합니다</p>
+            <p class="panel__title">근거는 해시와 함께 저장합니다</p>
             <p class="panel__body">
               나중에 "왜 이렇게 판정됐나"를 되짚을 수 있는 최소 집합을 근거 JSON으로 남깁니다.
               키 순서가 흔들리면 같은 근거라도 해시가 달라지므로 키를 정렬한 뒤 SHA-256을 계산합니다.
@@ -289,7 +289,7 @@
           <li class="timeline__step is-seal">
             <span class="timeline__t num">60s · 첫 투구</span>
             <b>마감 · 봉인</b>
-            <small>참여 내역을 해시로 고정합니다</small>
+            <small>참여 내역의 해시를 남깁니다</small>
           </li>
           <li class="timeline__step">
             <span class="timeline__t num">하프이닝</span>
@@ -319,6 +319,7 @@
             <p class="panel__body">
               참여 ID 오름차순으로 순서를 고정해, 같은 입력이면 언제 어디서 계산해도 같은 값이 나옵니다.
               마감 뒤에 참여를 끼워 넣었는지 확인하는 근거입니다. 참여자가 0명이어도 마감하고, 무효 여부는 정산이 판단합니다.
+              해시는 서버 DB에 저장됩니다. 외부에서도 확인할 수 있게 하는 블록체인 기록은 운영에서 꺼 두었습니다.
             </p>
           </div>
         </div>
