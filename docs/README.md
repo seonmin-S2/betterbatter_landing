@@ -53,7 +53,7 @@ npx serve .                    # Node
 
 | 페이지 | 담는 내용 |
 | --- | --- |
-| 홈 | 히어로(라이브 마켓 무대) · 요약 수치 · 기획 배경(자리표시) · 기능 요약 3장 · 실제 화면 영상 4편 |
+| 홈 | 히어로(라이브 마켓 무대) · 요약 수치 · 기획 배경(세 가지 기준) · 기능 요약 3장 · 실제 화면 영상 4편 |
 | 제품 | 사용 흐름 5장면 · 질문 테이블(38종) · 파리뮤추얼 정산 · 시즌 · 티어 · 업적 · 직접 해보기 |
 | 검증 | 질문 선정 점수(계산기 · 실제 출제 분포) · 결과 판정(교차검증 · 원문 대조) · 마감 처리 · 운영 검증 |
 | 기술 | 시스템 아키텍처 · 배포 · 데이터 파이프라인 · 블록체인 설계(운영 비활성) · 기술 스택 |
@@ -114,7 +114,7 @@ betterbatter_landing/          저장소 루트 = 사이트 루트
 │   │   └── 05-closing.css     마무리 블록
 │   │
 │   └── pages/
-│       ├── home/              hero.css (라이브 마켓 무대) · glance.css (기능 요약) · film.css (영상)
+│       ├── home/              hero.css (라이브 마켓 무대) · why.css (기획 배경) · glance.css (기능 요약) · film.css (영상)
 │       ├── product/           flow.css (사용 흐름) · questions.css (질문 테이블) · payout.css (정산 · 시즌) · vote.css (직접 해보기 — 앱 투표 화면)
 │       ├── proof/             selection.css (선정 · 계산기 · 분포) · oracle.css (판정 · 마감) · ops.css (운영)
 │       ├── tech/              tech.css (아키텍처 · 배포 · 파이프라인 · 체인 · 스택)
@@ -138,8 +138,9 @@ betterbatter_landing/          저장소 루트 = 사이트 루트
         ├── home/
         │   ├── heroMarket.js      히어로 마켓 무대 (질문 5개를 5단계로 재생)
         │   ├── heroFacts.js       요약 수치 카운트업
+        │   ├── why.js             기획 배경 — 세 가지 기준 카드
         │   ├── film.js            영상 탭 · 플레이어
-        │   └── home.data.js       ★ 요약 수치 · 히어로 질문 · 영상 목록
+        │   └── home.data.js       ★ 요약 수치 · 히어로 질문 · 기획 배경 · 영상 목록
         ├── product/
         │   ├── flow.js            사용 흐름 탭
         │   ├── questionGrid.js    질문 카드 · 계열 필터 · 9/30 출제 스위치
@@ -202,7 +203,8 @@ betterbatter_landing/          저장소 루트 = 사이트 루트
 
 ### ✍️ 기획 배경
 
-`index.html` 의 `<section id="why">` 안 자리표시 문구를 바꿉니다.
+제목과 도입문은 `index.html` 의 `<section id="why">` 에, 기준 카드 3장은 `js/pages/home/home.data.js` 의 `WHY` 에 있습니다.
+카드 번호는 순서대로 자동으로 붙고, `tone` (`green` · `blue` · `coral`) 은 카드 위 색 띠입니다.
 
 ### 🔗 서비스 · 저장소 · 발표자료 링크
 

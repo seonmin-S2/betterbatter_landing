@@ -1,0 +1,58 @@
+/* ==========================================================================
+   pages/home/why.css — 홈: 기획 배경
+   목표 한 줄(섹션 머리) 아래에 세 가지 기준 카드를 둔다.
+   카드 위 색 띠는 --tone (home.data.js 의 WHY.tone)
+   ========================================================================== */
+
+.why {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.why__card {
+  --tone: var(--market-coral);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 2.8vw, 32px);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.why__card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--tone);
+}
+
+.why__num {
+  font-family: var(--font-mono);
+  font-size: var(--font-caption);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-text-accent);
+}
+
+.why__title {
+  display: block;
+  margin-top: 12px;
+  font-size: clamp(19px, 1.9vw, 23px);
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+}
+
+.why__body {
+  margin: 10px 0 0;
+  font-size: var(--font-label);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}

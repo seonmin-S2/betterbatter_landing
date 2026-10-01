@@ -92,7 +92,7 @@ VS Code 를 쓴다면 Live Server 확장을 설치하고 `index.html` 우클릭 
 
 | 하고 싶은 일 | 고칠 파일 |
 | --- | --- |
-| 기획 배경 문구 (홈) | `index.html` 의 `#why` 섹션 — 지금은 "기획 배경 문구 OO 작성" 자리표시 |
+| 기획 배경 (홈) | 제목 · 도입문은 `index.html` 의 `#why`, 기준 카드 3장은 `js/pages/home/home.data.js` 의 `WHY` |
 | 팀원 역할 · 소개 · 사진 | `js/pages/team/team.data.js` (사진은 `assets/team/` 에 두고 `avatar` 경로 입력) |
 | 서비스 · 저장소 · 발표자료 링크 | `js/data/site.js` 의 `LINKS` (빈 값이면 버튼이 숨겨짐) |
 | 상단바 목차 · 페이지 구성 | `js/data/site.js` 의 `NAV` (한 곳만 고치면 전 페이지 반영) |

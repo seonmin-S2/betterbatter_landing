@@ -19,6 +19,7 @@ import { initReveal, initCursorGlow } from "./shared/reveal.js";
 import { initHeroMarket } from "./pages/home/heroMarket.js";
 import { initHeroFacts } from "./pages/home/heroFacts.js";
 import { initFilm } from "./pages/home/film.js";
+import { initWhy } from "./pages/home/why.js";
 import { initFlow } from "./pages/product/flow.js";
 import { initQuestionGrid } from "./pages/product/questionGrid.js";
 import { initPayout } from "./pages/product/payout.js";
@@ -44,6 +45,7 @@ const PAGE_MODULES = {
   home: [
     ["heroMarket", initHeroMarket],
     ["heroFacts", initHeroFacts],
+    ["why", initWhy],
     ["film", initFilm],
   ],
   product: [
